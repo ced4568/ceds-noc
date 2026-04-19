@@ -1,40 +1,231 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <title>Chase Dumphord | Digital Systems Engineer</title>
-    <link rel="stylesheet" href="style.css">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Chase Dumphord | Digital Systems & Infrastructure</title>
+  <meta
+    name="description"
+    content="Chase Dumphord portfolio - digital systems, infrastructure, networking, cybersecurity, and real-world technical projects."
+  />
+  <link rel="stylesheet" href="style.css" />
 </head>
 <body>
-
-<header>
-    <h1>Chase Dumphord</h1>
-    <p>Digital Systems | Networking | Cybersecurity</p>
-</header>
-
-<section>
-    <h2>🚀 Featured Project</h2>
-    <div class="card">
-        <h3>APRS iGate System</h3>
-        <p>Built a dual-node APRS iGate with Raspberry Pi, Direwolf, APRS-IS, GPS, and network failover.</p>
-        <a href="https://github.com/ced4568/ceds-aprs-igate" target="_blank">View Project</a>
+  <header class="site-header">
+    <div class="container nav">
+      <a href="#top" class="logo">Chase Dumphord</a>
+      <nav>
+        <ul class="nav-links">
+          <li><a href="#about">About</a></li>
+          <li><a href="#projects">Projects</a></li>
+          <li><a href="#resume">Resume</a></li>
+          <li><a href="#contact">Contact</a></li>
+        </ul>
+      </nav>
     </div>
-</section>
+  </header>
 
-<section>
-    <h2>🧠 Skills</h2>
-    <ul>
-        <li>Linux / Systemd</li>
-        <li>Networking / VLANs</li>
-        <li>Raspberry Pi / Embedded Systems</li>
-        <li>Cybersecurity Fundamentals</li>
-    </ul>
-</section>
+  <main id="top">
+    <section class="hero">
+      <div class="container hero-grid">
+        <div class="hero-text">
+          <p class="eyebrow">Digital Systems • Infrastructure • Networking • Cybersecurity</p>
+          <h1>I build real-world systems that connect hardware, networks, software, and operations.</h1>
+          <p class="lead">
+            I’m Chase Dumphord. My work spans digital systems, Linux infrastructure, homelab engineering,
+            Raspberry Pi deployments, networking, and practical technical problem solving.
+          </p>
 
-<section>
-    <h2>📫 Contact</h2>
-    <p>Email: chasedumphord@gmail.com</p>
-</section>
+          <div class="hero-actions">
+            <a class="btn btn-primary" href="#projects">View Projects</a>
+            <a class="btn btn-secondary" href="#contact">Contact Me</a>
+          </div>
 
+          <ul class="quick-facts">
+            <li>Based in Oxford, MS</li>
+            <li>GitHub: <a href="https://github.com/ced4568" target="_blank" rel="noopener noreferrer">ced4568</a></li>
+            <li>Email: <a href="mailto:chasedumphord@gmail.com">chasedumphord@gmail.com</a></li>
+          </ul>
+        </div>
+
+        <div class="hero-image-card">
+          <img src="assets/images/ChaseD_headshot.jpg" alt="Headshot of Chase Dumphord" class="hero-image" />
+        </div>
+      </div>
+    </section>
+
+    <section id="about" class="section">
+      <div class="container">
+        <div class="section-heading">
+          <p class="section-label">About</p>
+          <h2>Hands-on systems builder with a digital infrastructure mindset</h2>
+        </div>
+
+        <div class="content-grid">
+          <div class="card">
+            <p>
+              I’m a technical professional focused on digital systems, infrastructure, networking, and cybersecurity.
+              I enjoy building systems that are practical, reliable, and well documented — from APRS iGates and
+              Raspberry Pi deployments to homelab services, automation, and troubleshooting workflows.
+            </p>
+            <p>
+              My background blends field engineering, industrial technology, software-oriented thinking, and infrastructure
+              problem solving. I’m especially interested in projects that connect the physical and digital worlds through
+              monitoring, networking, automation, and secure design.
+            </p>
+          </div>
+
+          <div class="card">
+            <h3>Core Focus Areas</h3>
+            <ul class="clean-list">
+              <li>Linux systems and service management</li>
+              <li>Networking, VLANs, failover, and connectivity troubleshooting</li>
+              <li>Raspberry Pi and edge-device deployments</li>
+              <li>Digital systems and infrastructure documentation</li>
+              <li>Cybersecurity fundamentals and secure system design</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="projects" class="section section-alt">
+      <div class="container">
+        <div class="section-heading">
+          <p class="section-label">Projects</p>
+          <h2>Featured technical work</h2>
+        </div>
+
+        <div class="projects-grid">
+          <article class="project-card">
+            <div class="project-top">
+              <h3>APRS iGate System</h3>
+              <span class="tag">Featured</span>
+            </div>
+            <p>
+              Built a dual-node APRS iGate system using Raspberry Pi, Direwolf, APRS-IS, GPS planning,
+              and automated Wi-Fi failover between HomeLab and mobile hotspot connectivity.
+            </p>
+            <ul class="clean-list">
+              <li>Direwolf APRS decoding and APRS-IS integration</li>
+              <li>Systemd-managed service automation</li>
+              <li>HomeLab ↔ hotspot failover using nmcli priorities</li>
+              <li>GitHub-documented configs, architecture, and setup</li>
+            </ul>
+            <div class="project-links">
+              <a href="https://github.com/ced4568/ceds-aprs-igate" target="_blank" rel="noopener noreferrer">View Repo</a>
+            </div>
+          </article>
+
+          <article class="project-card">
+            <div class="project-top">
+              <h3>Ced’s HomeLab</h3>
+              <span class="tag">In Progress</span>
+            </div>
+            <p>
+              Ongoing homelab platform focused on infrastructure, monitoring, self-hosting, networking,
+              and practical systems engineering.
+            </p>
+            <ul class="clean-list">
+              <li>VLAN-aware architecture</li>
+              <li>Pi-based services and self-hosted tools</li>
+              <li>Documentation-driven build process</li>
+              <li>Future monitoring and dashboard expansion</li>
+            </ul>
+            <div class="project-links">
+              <a href="https://github.com/ced4568" target="_blank" rel="noopener noreferrer">View GitHub</a>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section id="resume" class="section">
+      <div class="container">
+        <div class="section-heading">
+          <p class="section-label">Resume Snapshot</p>
+          <h2>Technical experience that bridges field work and digital systems</h2>
+        </div>
+
+        <div class="content-grid">
+          <div class="card">
+            <h3>What I Bring</h3>
+            <ul class="clean-list">
+              <li>Industrial and field-service technical experience</li>
+              <li>Linux, Raspberry Pi, and systems administration work</li>
+              <li>Networking, connectivity, and troubleshooting depth</li>
+              <li>Documentation, process building, and reproducible project design</li>
+            </ul>
+          </div>
+
+          <div class="card">
+            <h3>Current Direction</h3>
+            <p>
+              I’m positioning myself around digital systems, infrastructure, networking, and cyber-adjacent technical work —
+              especially roles where hands-on problem solving and system integration matter.
+            </p>
+            <p>
+              More detailed resume content will be added here as the portfolio grows.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section section-alt personal-section">
+      <div class="container personal-grid">
+        <div class="personal-image-wrap">
+          <img src="assets/images/lakephotopinkpants.png" alt="Chase Dumphord standing by a fence with a lake view in the background" class="personal-image" />
+        </div>
+
+        <div class="card">
+          <p class="section-label">Personal Note</p>
+          <h2>Technical, curious, and always building</h2>
+          <p>
+            Outside of work, I enjoy electronics, self-hosting, coding, drones, and hands-on technical projects that
+            push me to learn something useful. That curiosity carries directly into the way I build and document systems.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <section id="contact" class="section">
+      <div class="container">
+        <div class="section-heading">
+          <p class="section-label">Contact</p>
+          <h2>Let’s connect</h2>
+        </div>
+
+        <div class="contact-grid">
+          <div class="card">
+            <h3>Contact Info</h3>
+            <p>Email: <a href="mailto:chasedumphord@gmail.com">chasedumphord@gmail.com</a></p>
+            <p>Phone: <a href="tel:+16627154233">662-715-4233</a></p>
+            <p>Location: Oxford, MS</p>
+            <p>GitHub: <a href="https://github.com/ced4568" target="_blank" rel="noopener noreferrer">github.com/ced4568</a></p>
+          </div>
+
+          <div class="card">
+            <h3>What I’m Open To</h3>
+            <ul class="clean-list">
+              <li>Digital systems and infrastructure roles</li>
+              <li>Networking and technical operations work</li>
+              <li>Cybersecurity-adjacent technical positions</li>
+              <li>Projects involving hardware + software integration</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container footer-content">
+      <p>© Chase Dumphord</p>
+      <a href="#top" class="back-to-top">Back to top ↑</a>
+    </div>
+  </footer>
+
+  <script src="script.js"></script>
 </body>
 </html>
