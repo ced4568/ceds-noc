@@ -89,56 +89,78 @@
       </div>
     </section>
 
-    <section id="projects" class="section section-alt">
-      <div class="container">
-        <div class="section-heading">
-          <p class="section-label">Projects</p>
-          <h2>Featured technical work</h2>
-        </div>
+   <section id="projects" class="section">
+  <div class="container">
+    <div class="section-heading">
+      <p class="section-label">Projects</p>
+      <h2>Real Systems I’ve Built</h2>
+    </div>
 
-        <div class="projects-grid">
-          <article class="project-card">
-            <div class="project-top">
-              <h3>APRS iGate System</h3>
-              <span class="tag">Featured</span>
-            </div>
-            <p>
-              Built a dual-node APRS iGate system using Raspberry Pi, Direwolf, APRS-IS, GPS planning,
-              and automated Wi-Fi failover between HomeLab and mobile hotspot connectivity.
-            </p>
-            <ul class="clean-list">
-              <li>Direwolf APRS decoding and APRS-IS integration</li>
-              <li>Systemd-managed service automation</li>
-              <li>HomeLab ↔ hotspot failover using nmcli priorities</li>
-              <li>GitHub-documented configs, architecture, and setup</li>
-            </ul>
-            <div class="project-links">
-              <a href="https://github.com/ced4568/ceds-aprs-igate" target="_blank" rel="noopener noreferrer">View Repo</a>
-            </div>
-          </article>
+    <div class="projects-grid">
 
-          <article class="project-card">
-            <div class="project-top">
-              <h3>Ced’s HomeLab</h3>
-              <span class="tag">In Progress</span>
-            </div>
-            <p>
-              Ongoing homelab platform focused on infrastructure, monitoring, self-hosting, networking,
-              and practical systems engineering.
-            </p>
-            <ul class="clean-list">
-              <li>VLAN-aware architecture</li>
-              <li>Pi-based services and self-hosted tools</li>
-              <li>Documentation-driven build process</li>
-              <li>Future monitoring and dashboard expansion</li>
-            </ul>
-            <div class="project-links">
-              <a href="https://github.com/ced4568" target="_blank" rel="noopener noreferrer">View GitHub</a>
-            </div>
-          </article>
-        </div>
+      <!-- APRS PROJECT -->
+      <div class="project-card">
+        <h3>📡 APRS iGate System</h3>
+        <p>
+          Dual-node APRS iGate system built with Raspberry Pi, Direwolf, GPS, and network failover.
+          Integrates RF systems into IP infrastructure and HomeLab environment.
+        </p>
+
+        <ul>
+          <li>Linux + systemd services</li>
+          <li>Network failover (WiFi ↔ hotspot)</li>
+          <li>Hardware + software integration</li>
+          <li>Documented architecture + system flow</li>
+        </ul>
+
+        <a href="https://github.com/ced4568/ceds-aprs-igate" target="_blank" class="project-link">
+          View Project →
+        </a>
       </div>
-    </section>
+
+      <!-- PLACEHOLDER: HOMELAB -->
+      <div class="project-card">
+        <h3>🧠 Ced’s HomeLab</h3>
+        <p>
+          Personal infrastructure lab focused on networking, monitoring, virtualization,
+          and self-hosted services.
+        </p>
+
+        <ul>
+          <li>VLAN segmentation</li>
+          <li>Proxmox virtualization</li>
+          <li>Service hosting + monitoring</li>
+          <li>System architecture design</li>
+        </ul>
+
+        <a href="#" class="project-link">
+          Coming Soon →
+        </a>
+      </div>
+
+      <!-- PLACEHOLDER: K3S -->
+      <div class="project-card">
+        <h3>☸️ K3s Cluster</h3>
+        <p>
+          Multi-node Kubernetes cluster built for container orchestration,
+          service deployment, and infrastructure experimentation.
+        </p>
+
+        <ul>
+          <li>Multi-node cluster setup</li>
+          <li>Containerized workloads</li>
+          <li>Service deployment</li>
+          <li>Infrastructure automation</li>
+        </ul>
+
+        <a href="#" class="project-link">
+          Coming Soon →
+        </a>
+      </div>
+
+    </div>
+  </div>
+</section>
 
     <section id="resume" class="section">
       <div class="container">

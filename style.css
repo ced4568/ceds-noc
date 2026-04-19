@@ -348,3 +348,15 @@ a:hover {
     align-items: flex-start;
   }
 }
+
+.project-link {
+  display: inline-block;
+  margin-top: 10px;
+  color: #4ea1ff;
+  font-weight: bold;
+  text-decoration: none;
+}
+
+.project-link:hover {
+  text-decoration: underline;
+}
