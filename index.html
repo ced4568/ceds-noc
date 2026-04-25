@@ -153,21 +153,21 @@ building_real_systems</code></pre>
             <p>Nodes</p>
           </div>
 
-          <div class="noc-metric">
-            <h3 id="metric-services">--</h3>
-            <p>Services</p>
-          </div>
-
-          <div class="noc-metric">
-            <h3 id="metric-vlans">--</h3>
-            <p>VLANs</p>
-          </div>
-
-          <div class="noc-metric">
-            <h3 id="metric-edge">--</h3>
-            <p>Edge Systems</p>
-          </div>
+        <div class="noc-metric">
+           <h3 id="metric-services">--</h3>
+          <p>Services Online</p>
         </div>
+
+        <div class="noc-metric">
+          <h3 id="metric-vlans">--</h3>
+        <p>Network Segments</p>
+      </div>
+
+       <div class="noc-metric">
+          <h3 id="metric-edge">--</h3>
+          <p>Edge Systems</p>
+        </div>
+</div>
 
         <div id="noc-system-grid" class="noc-system-grid"></div>
       </div>
@@ -315,34 +315,44 @@ building_real_systems</code></pre>
       </div>
     </section>
 
-    <section class="section noc-section">
-      <div class="container">
-        <div class="section-heading">
-          <p class="section-label">Future Buildout</p>
-          <h2>📊 Ced’s NOC Vision</h2>
-          <p class="section-intro">
-            The long-term goal is to bring these systems together into a unified network operations view.
-          </p>
-        </div>
+   <section class="section noc-section">
+  <div class="container">
+    <div class="section-heading">
+      <p class="section-label">NOC Roadmap</p>
+      <h2>📊 Ced’s NOC Vision</h2>
+      <p class="section-intro">
+        Ced’s NOC is being built as a staged monitoring and systems-visibility platform for HomeLab,
+        Kubernetes, edge devices, and future production-style dashboards.
+      </p>
+    </div>
 
-        <div class="noc-grid">
-          <div class="noc-card">
-            <h3>Monitoring</h3>
-            <p>Grafana, Prometheus, Uptime Kuma, and service-level visibility.</p>
-          </div>
-
-          <div class="noc-card">
-            <h3>Infrastructure</h3>
-            <p>HomeLab services, K3s nodes, VLANs, and self-hosted systems.</p>
-          </div>
-
-          <div class="noc-card">
-            <h3>Edge Systems</h3>
-            <p>APRS iGate nodes, Raspberry Pi devices, and field/mobile deployments.</p>
-          </div>
-        </div>
+    <div class="noc-grid">
+      <div class="noc-card">
+        <h3>✅ Current: Portfolio NOC</h3>
+        <p>
+          JSON-driven dashboard that displays real inventory, online/offline checks, service labels,
+          latency, and last-check timestamps.
+        </p>
       </div>
-    </section>
+
+      <div class="noc-card">
+        <h3>⚙️ Next: Automated Data Updates</h3>
+        <p>
+          Scheduled local script updates will refresh system status data automatically and push dashboard-ready
+          JSON into the portfolio.
+        </p>
+      </div>
+
+      <div class="noc-card">
+        <h3>📈 Future: Grafana + Prometheus</h3>
+        <p>
+          Deeper monitoring stack for Proxmox, TrueNAS, K3s, Raspberry Pi nodes, Uptime Kuma,
+          and APRS edge systems.
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
 
     <section id="resume" class="section">
       <div class="container">

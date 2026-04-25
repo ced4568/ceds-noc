@@ -55,11 +55,18 @@ async function loadNocStatus() {
           <span class="mini-status ${statusClass}"></span>
           <span>${system.layer}</span>
         </div>
+
+        <div class="system-label">${system.label || "System"}</div>
+
         <h3>${system.name}</h3>
         <p>${system.type}</p>
         <code>${system.address}</code>
-        <small>Status: ${system.status}</small>
-        <small>Last Check: ${system.lastCheck || "Manual"}</small>
+
+        <div class="system-meta">
+          <small>Status: ${system.status}</small>
+          <small>Latency: ${system.latency || "N/A"}</small>
+          <small>Last Check: ${system.lastCheck || "Manual"}</small>
+        </div>
       `;
 
       grid.appendChild(card);

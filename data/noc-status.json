@@ -1,69 +1,85 @@
 {
   "nocName": "Ced's NOC",
-  "status": "Operational Build",
-  "lastUpdated": "2026-04-25 16:52:17",
+  "status": "All Systems Online",
+  "lastUpdated": "2026-04-25 17:45:47",
   "summary": {
     "nodes": "12+",
     "services": "7/7",
+    "online": "7",
+    "offline": "0",
     "vlans": "4",
     "edgeSystems": "2"
   },
   "systems": [
     {
       "name": "Proxmox VE",
-      "type": "Virtualization",
+      "type": "Virtualization Platform",
       "address": "10.10.30.250:8006",
       "status": "Online",
-      "layer": "Infrastructure",
-      "lastCheck": "2026-04-25 16:52:17"
+      "layer": "Core Infrastructure",
+      "label": "Hypervisor",
+      "latency": "4 ms",
+      "lastCheck": "2026-04-25 17:45:47"
     },
     {
       "name": "TrueNAS",
-      "type": "Storage",
+      "type": "Storage Platform",
       "address": "10.10.30.143",
       "status": "Online",
       "layer": "Storage",
-      "lastCheck": "2026-04-25 16:52:17"
+      "label": "NAS",
+      "latency": "1 ms",
+      "lastCheck": "2026-04-25 17:45:47"
     },
     {
       "name": "Nginx Proxy Manager",
       "type": "Reverse Proxy",
       "address": "10.10.30.210:81",
       "status": "Online",
-      "layer": "Access",
-      "lastCheck": "2026-04-25 16:52:17"
+      "layer": "Access Layer",
+      "label": "Proxy",
+      "latency": "0 ms",
+      "lastCheck": "2026-04-25 17:45:47"
     },
     {
       "name": "Dashy",
-      "type": "Dashboard",
+      "type": "Service Dashboard",
       "address": "10.10.30.61:4000",
       "status": "Online",
-      "layer": "Monitoring",
-      "lastCheck": "2026-04-25 16:52:17"
+      "layer": "Dashboard",
+      "label": "Portal",
+      "latency": "17 ms",
+      "lastCheck": "2026-04-25 17:45:47"
     },
     {
       "name": "Jellyfin",
       "type": "Media Service",
       "address": "10.10.30.143:30013",
       "status": "Online",
-      "layer": "Services",
-      "lastCheck": "2026-04-25 16:52:17"
+      "layer": "Application Service",
+      "label": "App",
+      "latency": "2 ms",
+      "lastCheck": "2026-04-25 17:45:47"
     },
     {
       "name": "K3s API",
       "type": "Kubernetes API",
       "address": "10.10.30.72:6443",
       "status": "Online",
-      "layer": "Compute",
-      "lastCheck": "2026-04-25 16:52:17"
+      "layer": "Compute Cluster",
+      "label": "Cluster",
+      "latency": "13 ms",
+      "lastCheck": "2026-04-25 17:45:47"
     },
     {
       "name": "APRS-IS",
       "type": "APRS Internet Service",
       "address": "noam.aprs2.net:14580",
       "status": "Online",
-      "layer": "Edge",
-      "lastCheck": "2026-04-25 16:52:17"
+      "layer": "Edge / RF",
+      "label": "External",
+      "latency": "100 ms",
+      "lastCheck": "2026-04-25 17:45:47"
     }
   ]
 }

@@ -581,3 +581,33 @@ a:hover {
   font-weight: 500;
   margin-top: 0.25rem;
 }
+
+.system-label {
+  display: inline-block;
+  margin-top: 0.85rem;
+  margin-bottom: 0.35rem;
+  padding: 0.25rem 0.55rem;
+  border-radius: 999px;
+  background: rgba(88, 166, 255, 0.12);
+  border: 1px solid rgba(88, 166, 255, 0.22);
+  color: var(--accent);
+  font-size: 0.72rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+.system-meta {
+  display: grid;
+  gap: 0.25rem;
+  margin-top: 0.85rem;
+}
+
+.system-meta small {
+  color: var(--muted);
+}
+
+.system-meta small:first-child {
+  color: var(--accent);
+  font-weight: 800;
+}
