@@ -28,7 +28,7 @@ async function loadNocStatus() {
       return;
     }
 
-    statusText.textContent = `${data.nocName} — ${data.status} — ${data.lastUpdated}`;
+    statusText.textContent = `${data.nocName} — ${data.status} — Last updated: ${data.lastUpdated}`;
 
     nodes.textContent = data.summary.nodes;
     services.textContent = data.summary.services;
@@ -48,7 +48,7 @@ async function loadNocStatus() {
           ? "online"
           : status.includes("building") || status.includes("tuning") || status.includes("active")
           ? "warning"
-          : "planned";
+          : "offline";
 
       card.innerHTML = `
         <div class="noc-system-top">
@@ -59,6 +59,7 @@ async function loadNocStatus() {
         <p>${system.type}</p>
         <code>${system.address}</code>
         <small>Status: ${system.status}</small>
+        <small>Last Check: ${system.lastCheck || "Manual"}</small>
       `;
 
       grid.appendChild(card);

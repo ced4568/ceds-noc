@@ -560,3 +560,24 @@ a:hover {
     gap: 0.5rem;
   }
 }
+
+.mini-status.online {
+  background: var(--accent-2);
+  box-shadow: 0 0 16px rgba(142, 240, 207, 0.9);
+}
+
+.mini-status.warning {
+  background: var(--warning);
+  box-shadow: 0 0 16px rgba(242, 204, 96, 0.9);
+}
+
+.mini-status.offline {
+  background: #ff5f56;
+  box-shadow: 0 0 16px rgba(255, 95, 86, 0.9);
+}
+
+.noc-system-card small + small {
+  color: var(--muted);
+  font-weight: 500;
+  margin-top: 0.25rem;
+}
