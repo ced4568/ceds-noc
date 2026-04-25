@@ -33,6 +33,8 @@
   </header>
 
   <main id="top">
+
+    <!-- HERO -->
     <section class="hero">
       <div class="container hero-grid">
         <div class="hero-text">
@@ -50,96 +52,34 @@
             <a class="btn btn-primary" href="#projects">View Projects</a>
             <a class="btn btn-secondary" href="#contact">Contact Me</a>
           </div>
-
-          <ul class="quick-facts">
-            <li>Oxford, MS</li>
-            <li>
-              GitHub:
-              <a href="https://github.com/ced4568" target="_blank" rel="noopener noreferrer">ced4568</a>
-            </li>
-            <li>
-              Email:
-              <a href="mailto:chasedumphord@gmail.com">chasedumphord@gmail.com</a>
-            </li>
-          </ul>
-        </div>
-
-        <div class="hero-panel">
-          <img
-            src="assets/images/ChaseD_headshot.jpg"
-            alt="Headshot of Chase Dumphord"
-            class="hero-image"
-          />
-
-          <div class="terminal-card">
-            <div class="terminal-top">
-              <span></span>
-              <span></span>
-              <span></span>
-            </div>
-
-            <pre><code>$ whoami
-systems_builder
-
-$ focus
-infrastructure
-networking
-automation
-edge_systems
-
-$ status
-building_real_systems</code></pre>
-          </div>
         </div>
       </div>
     </section>
 
+    <!-- SNAPSHOT -->
     <section id="snapshot" class="section section-alt">
       <div class="container">
         <div class="section-heading">
           <p class="section-label">Environment</p>
           <h2>Systems Snapshot</h2>
-          <p class="section-intro">
-            A quick look at the infrastructure and systems I’m actively building and documenting.
-          </p>
         </div>
 
         <div class="stats-grid">
-          <div class="stat-card">
-            <h3>12+</h3>
-            <p>Nodes</p>
-            <span>K3s cluster environment</span>
-          </div>
-
-          <div class="stat-card">
-            <h3>10+</h3>
-            <p>Services</p>
-            <span>Self-hosted stack</span>
-          </div>
-
-          <div class="stat-card">
-            <h3>4</h3>
-            <p>VLANs</p>
-            <span>Segmented network design</span>
-          </div>
-
-          <div class="stat-card">
-            <h3>2</h3>
-            <p>iGate Nodes</p>
-            <span>Home + mobile APRS</span>
-          </div>
+          <div class="stat-card"><h3>12+</h3><p>Nodes</p></div>
+          <div class="stat-card"><h3>10+</h3><p>Services</p></div>
+          <div class="stat-card"><h3>4</h3><p>VLANs</p></div>
+          <div class="stat-card"><h3>2</h3><p>iGate Nodes</p></div>
         </div>
       </div>
     </section>
 
+    <!-- NOC -->
     <section id="noc" class="section noc-dashboard">
       <div class="container">
+
         <div class="section-heading">
           <p class="section-label">Ced’s NOC</p>
           <h2>Live Systems Overview</h2>
-          <p class="section-intro">
-            Real infrastructure inventory from Ced’s HomeLab, K3s cluster, and APRS edge systems.
-          </p>
         </div>
 
         <div class="noc-command-bar">
@@ -147,311 +87,113 @@ building_real_systems</code></pre>
           <span id="noc-status-text">Loading NOC status...</span>
         </div>
 
+        <p class="noc-proof">
+          Built using real infrastructure: Proxmox • K3s • TrueNAS • VLAN segmentation • APRS RF Edge Systems
+        </p>
+
+        <!-- ✅ FIXED METRICS -->
         <div class="noc-metrics-grid">
           <div class="noc-metric">
             <h3 id="metric-nodes">--</h3>
-            <p>Nodes</p>
+            <p>Infrastructure Nodes</p>
           </div>
 
-        <div class="noc-metric">
-           <h3 id="metric-services">--</h3>
-          <p>Services Online</p>
+          <div class="noc-metric">
+            <h3 id="metric-services">--</h3>
+            <p>Services Online</p>
+          </div>
+
+          <div class="noc-metric">
+            <h3 id="metric-vlans">--</h3>
+            <p>Network Segments</p>
+          </div>
+
+          <div class="noc-metric">
+            <h3 id="metric-edge">--</h3>
+            <p>Edge Systems</p>
+          </div>
         </div>
 
-        <div class="noc-metric">
-          <h3 id="metric-vlans">--</h3>
-        <p>Network Segments</p>
-      </div>
-
-       <div class="noc-metric">
-          <h3 id="metric-edge">--</h3>
-          <p>Edge Systems</p>
-        </div>
-</div>
-
+        <!-- SYSTEM GRID -->
         <div id="noc-system-grid" class="noc-system-grid"></div>
+
       </div>
     </section>
 
+    <!-- ABOUT -->
     <section id="about" class="section">
       <div class="container">
         <div class="section-heading">
           <p class="section-label">About</p>
-          <h2>Hands-on systems builder with a digital infrastructure mindset</h2>
+          <h2>Hands-on systems builder</h2>
         </div>
 
-        <div class="content-grid">
-          <div class="card">
-            <p>
-              I’m a technical professional focused on digital systems, infrastructure, networking,
-              automation, and hands-on system integration. I enjoy building systems that are practical,
-              reliable, and well documented — from homelab services and dashboards to Raspberry Pi
-              deployments, APRS iGates, and troubleshooting workflows.
-            </p>
-
-            <p>
-              My background blends field engineering, industrial technology, software-oriented thinking,
-              and infrastructure problem solving. I’m especially interested in projects that connect the
-              physical and digital worlds through monitoring, networking, automation, and resilient design.
-            </p>
-          </div>
-
-          <div class="card">
-            <h3>Core Focus Areas</h3>
-
-            <ul class="clean-list">
-              <li>Digital systems and infrastructure</li>
-              <li>Linux systems and service management</li>
-              <li>Networking, VLANs, failover, and connectivity troubleshooting</li>
-              <li>Raspberry Pi and edge-device deployments</li>
-              <li>Documentation, process building, and reproducible project design</li>
-            </ul>
-          </div>
-        </div>
+        <p>
+          I build real infrastructure systems, homelabs, networking environments,
+          Raspberry Pi deployments, and monitoring systems.
+        </p>
       </div>
     </section>
 
+    <!-- PROJECTS -->
     <section id="projects" class="section section-alt">
       <div class="container">
         <div class="section-heading">
           <p class="section-label">Projects</p>
-          <h2>🔧 Infrastructure & Systems Projects</h2>
-          <p class="section-intro">
-            These projects are built around real systems, networking, Linux services, edge devices,
-            and practical documentation.
-          </p>
+          <h2>Infrastructure & Systems Projects</h2>
         </div>
 
         <div class="projects-grid">
-          <article class="project-card featured-project">
-            <div class="project-top">
-              <h3>🧠 Ced’s HomeLab Infrastructure</h3>
-              <span class="status-pill">Flagship</span>
-            </div>
-
-            <p class="tags">Infrastructure • Networking • Virtualization • Monitoring • Self-Hosting</p>
-
-            <p class="project-impact">
-              Designed as a practical infrastructure environment for networking, monitoring,
-              service hosting, and documentation.
-            </p>
-
-            <p>
-              Personal infrastructure lab focused on network segmentation, virtualization,
-              self-hosted services, monitoring, and architecture documentation.
-            </p>
-
-            <ul class="clean-list">
-              <li>VLAN segmentation and network design</li>
-              <li>Proxmox virtualization</li>
-              <li>Self-hosted services and monitoring</li>
-              <li>System architecture documentation</li>
-            </ul>
-
-            <a href="https://github.com/ced4568/ceds-homelab" target="_blank" rel="noopener noreferrer" class="project-link">
-              View Project →
-            </a>
+          <article class="project-card">
+            <h3>Ced’s HomeLab</h3>
+            <a href="https://github.com/ced4568/ceds-homelab" target="_blank">View Project</a>
           </article>
 
           <article class="project-card">
-            <div class="project-top">
-              <h3>☸️ K3s Kubernetes Cluster</h3>
-              <span class="status-pill">Infrastructure</span>
-            </div>
-
-            <p class="tags">Kubernetes • Containers • Linux • Infrastructure • Automation</p>
-
-            <p class="project-impact">
-              Built to simulate distributed infrastructure, container orchestration, and scalable service deployment.
-            </p>
-
-            <p>
-              Multi-node K3s cluster built for container orchestration, service deployment,
-              and infrastructure experimentation.
-            </p>
-
-            <ul class="clean-list">
-              <li>Multi-node cluster setup</li>
-              <li>Containerized workloads</li>
-              <li>Service deployment</li>
-              <li>Infrastructure automation</li>
-            </ul>
-
-            <a href="https://github.com/ced4568/ced-k3s-homelab" target="_blank" rel="noopener noreferrer" class="project-link">
-              View Project →
-            </a>
+            <h3>K3s Cluster</h3>
+            <a href="https://github.com/ced4568/ced-k3s-homelab" target="_blank">View Project</a>
           </article>
 
           <article class="project-card">
-            <div class="project-top">
-              <h3>📡 APRS iGate System</h3>
-              <span class="status-pill">Edge System</span>
-            </div>
-
-            <p class="tags">RF • Linux • Raspberry Pi • Networking • APRS-IS • Edge Systems</p>
-
-            <p class="project-impact">
-              Bridges RF communication into IP-based infrastructure using Linux, Direwolf, and APRS-IS.
-            </p>
-
-            <p>
-              Operational dual-node APRS iGate system built with Raspberry Pi, Direwolf, APRS-IS,
-              RF radios, HomeLab network integration, and planned mobile GPS support.
-            </p>
-
-            <ul class="clean-list">
-              <li>RF packet decoding with Direwolf</li>
-              <li>APRS-IS uplink verified on aprs.fi</li>
-              <li>HomeLab WiFi + mobile hotspot failover</li>
-              <li>Mobile build includes ETH-USB-HUB-BOX expansion</li>
-              <li>Documented configs, architecture, and troubleshooting</li>
-            </ul>
-
-            <a href="https://github.com/ced4568/ceds-aprs-igate" target="_blank" rel="noopener noreferrer" class="project-link">
-              View Project →
-            </a>
+            <h3>APRS iGate</h3>
+            <a href="https://github.com/ced4568/ceds-aprs-igate" target="_blank">View Project</a>
           </article>
         </div>
       </div>
     </section>
 
-   <section class="section noc-section">
-  <div class="container">
-    <div class="section-heading">
-      <p class="section-label">NOC Roadmap</p>
-      <h2>📊 Ced’s NOC Vision</h2>
-      <p class="section-intro">
-        Ced’s NOC is being built as a staged monitoring and systems-visibility platform for HomeLab,
-        Kubernetes, edge devices, and future production-style dashboards.
-      </p>
-    </div>
-
-    <div class="noc-grid">
-      <div class="noc-card">
-        <h3>✅ Current: Portfolio NOC</h3>
-        <p>
-          JSON-driven dashboard that displays real inventory, online/offline checks, service labels,
-          latency, and last-check timestamps.
-        </p>
-      </div>
-
-      <div class="noc-card">
-        <h3>⚙️ Next: Automated Data Updates</h3>
-        <p>
-          Scheduled local script updates will refresh system status data automatically and push dashboard-ready
-          JSON into the portfolio.
-        </p>
-      </div>
-
-      <div class="noc-card">
-        <h3>📈 Future: Grafana + Prometheus</h3>
-        <p>
-          Deeper monitoring stack for Proxmox, TrueNAS, K3s, Raspberry Pi nodes, Uptime Kuma,
-          and APRS edge systems.
-        </p>
-      </div>
-    </div>
-  </div>
-</section>
-
-    <section id="resume" class="section">
+    <!-- NOC VISION -->
+    <section class="section noc-section">
       <div class="container">
         <div class="section-heading">
-          <p class="section-label">Resume Snapshot</p>
-          <h2>Technical experience that bridges field work and digital systems</h2>
+          <p class="section-label">NOC Roadmap</p>
+          <h2>📊 Ced’s NOC Vision</h2>
         </div>
 
-        <div class="content-grid">
-          <div class="card">
-            <h3>What I Bring</h3>
-
-            <ul class="clean-list">
-              <li>Industrial and field-service technical experience</li>
-              <li>Linux, Raspberry Pi, and systems administration work</li>
-              <li>Networking, connectivity, and troubleshooting depth</li>
-              <li>Documentation, process building, and reproducible project design</li>
-            </ul>
+        <div class="noc-grid">
+          <div class="noc-card">
+            <h3>Current</h3>
+            <p>Live JSON-driven NOC dashboard</p>
           </div>
 
-          <div class="card">
-            <h3>Current Direction</h3>
+          <div class="noc-card">
+            <h3>Next</h3>
+            <p>Automated updates + alerts</p>
+          </div>
 
-            <p>
-              I’m positioning myself around digital systems, infrastructure, networking,
-              automation, and technical operations — especially roles where hands-on problem
-              solving and system integration matter.
-            </p>
-
-            <p>
-              More detailed resume content will be added here as the portfolio grows.
-            </p>
+          <div class="noc-card">
+            <h3>Future</h3>
+            <p>Grafana + Prometheus stack</p>
           </div>
         </div>
       </div>
     </section>
 
-    <section class="section section-alt personal-section">
-      <div class="container personal-grid">
-        <div class="personal-image-wrap">
-          <img
-            src="assets/images/lakephotopinkpants.png"
-            alt="Chase Dumphord standing by a fence with a lake view in the background"
-            class="personal-image"
-          />
-        </div>
-
-        <div class="card">
-          <p class="section-label">Personal Note</p>
-          <h2>Technical, curious, and always building</h2>
-
-          <p>
-            Outside of work, I enjoy electronics, self-hosting, coding, drones, radio, and
-            hands-on technical projects that push me to learn something useful. That curiosity
-            carries directly into the way I build and document systems.
-          </p>
-        </div>
-      </div>
-    </section>
-
-    <section id="contact" class="section">
-      <div class="container">
-        <div class="section-heading">
-          <p class="section-label">Contact</p>
-          <h2>Let’s connect</h2>
-        </div>
-
-        <div class="contact-grid">
-          <div class="card">
-            <h3>Contact Info</h3>
-
-            <p>Email: <a href="mailto:chasedumphord@gmail.com">chasedumphord@gmail.com</a></p>
-            <p>Phone: <a href="tel:+16622142231">662-214-2231</a></p>
-            <p>Location: Oxford, MS</p>
-            <p>
-              GitHub:
-              <a href="https://github.com/ced4568" target="_blank" rel="noopener noreferrer">github.com/ced4568</a>
-            </p>
-          </div>
-
-          <div class="card">
-            <h3>What I’m Open To</h3>
-
-            <ul class="clean-list">
-              <li>Digital systems and infrastructure roles</li>
-              <li>Networking and technical operations work</li>
-              <li>Automation and monitoring projects</li>
-              <li>Projects involving hardware + software integration</li>
-            </ul>
-          </div>
-        </div>
-      </div>
-    </section>
   </main>
 
   <footer class="site-footer">
     <div class="container footer-content">
       <p>© <span data-year></span> Chase Dumphord</p>
-      <a href="#top" class="back-to-top">Back to top ↑</a>
     </div>
   </footer>
 

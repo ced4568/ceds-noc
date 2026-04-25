@@ -611,3 +611,40 @@ a:hover {
   color: var(--accent);
   font-weight: 800;
 }
+
+.noc-proof {
+  margin: 0.5rem 0 1.5rem;
+  color: var(--muted);
+  font-size: 0.9rem;
+  border-left: 3px solid var(--accent-2);
+  padding-left: 0.75rem;
+}
+
+.severity-pill {
+  display: inline-block;
+  margin-bottom: 0.5rem;
+  padding: 0.22rem 0.5rem;
+  border-radius: 999px;
+  font-size: 0.7rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+.severity-pill.healthy {
+  color: var(--accent-2);
+  background: rgba(142, 240, 207, 0.1);
+  border: 1px solid rgba(142, 240, 207, 0.28);
+}
+
+.severity-pill.degraded {
+  color: var(--warning);
+  background: rgba(242, 204, 96, 0.1);
+  border: 1px solid rgba(242, 204, 96, 0.28);
+}
+
+.severity-pill.critical {
+  color: #ff5f56;
+  background: rgba(255, 95, 86, 0.1);
+  border: 1px solid rgba(255, 95, 86, 0.28);
+}

@@ -84,11 +84,29 @@ def check_tcp(host, port, timeout=2):
         return False, None
 
 
+def severity_from_status(online, latency):
+    if not online:
+        return "Critical"
+
+    if latency is None:
+        return "Unknown"
+
+    if latency < 50:
+        return "Healthy"
+
+    if latency <= 150:
+        return "Degraded"
+
+    return "Critical"
+
+
 def health_label(online_count, total):
     if online_count == total:
         return "All Systems Online"
+
     if online_count >= max(1, total - 2):
         return "Degraded"
+
     return "Action Required"
 
 
@@ -116,6 +134,7 @@ def main():
             "type": system["type"],
             "address": system["address"],
             "status": status,
+            "severity": severity_from_status(online, latency),
             "layer": system["layer"],
             "label": system["label"],
             "latency": latency_value,

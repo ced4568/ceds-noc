@@ -5,6 +5,9 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   loadNocStatus();
+
+  // Auto-refresh NOC dashboard every 30 seconds
+  setInterval(loadNocStatus, 30000);
 });
 
 async function loadNocStatus() {
@@ -57,6 +60,10 @@ async function loadNocStatus() {
         </div>
 
         <div class="system-label">${system.label || "System"}</div>
+
+        <div class="severity-pill ${system.severity?.toLowerCase() || "unknown"}">
+          ${system.severity || "Unknown"}
+        </div>
 
         <h3>${system.name}</h3>
         <p>${system.type}</p>
