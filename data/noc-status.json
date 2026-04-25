@@ -1,10 +1,10 @@
 {
   "nocName": "Ced's NOC",
   "status": "Operational Build",
-  "lastUpdated": "Manual V1",
+  "lastUpdated": "2026-04-25 16:52:17",
   "summary": {
     "nodes": "12+",
-    "services": "10+",
+    "services": "7/7",
     "vlans": "4",
     "edgeSystems": "2"
   },
@@ -14,56 +14,56 @@
       "type": "Virtualization",
       "address": "10.10.30.250:8006",
       "status": "Online",
-      "layer": "Infrastructure"
+      "layer": "Infrastructure",
+      "lastCheck": "2026-04-25 16:52:17"
     },
     {
       "name": "TrueNAS",
       "type": "Storage",
       "address": "10.10.30.143",
       "status": "Online",
-      "layer": "Storage"
+      "layer": "Storage",
+      "lastCheck": "2026-04-25 16:52:17"
     },
     {
       "name": "Nginx Proxy Manager",
       "type": "Reverse Proxy",
       "address": "10.10.30.210:81",
       "status": "Online",
-      "layer": "Access"
+      "layer": "Access",
+      "lastCheck": "2026-04-25 16:52:17"
     },
     {
       "name": "Dashy",
       "type": "Dashboard",
       "address": "10.10.30.61:4000",
       "status": "Online",
-      "layer": "Monitoring"
+      "layer": "Monitoring",
+      "lastCheck": "2026-04-25 16:52:17"
     },
     {
       "name": "Jellyfin",
       "type": "Media Service",
       "address": "10.10.30.143:30013",
       "status": "Online",
-      "layer": "Services"
+      "layer": "Services",
+      "lastCheck": "2026-04-25 16:52:17"
     },
     {
-      "name": "K3s Cluster",
-      "type": "Kubernetes",
-      "address": "10.10.30.72 / 245 / 128",
-      "status": "Active Build",
-      "layer": "Compute"
+      "name": "K3s API",
+      "type": "Kubernetes API",
+      "address": "10.10.30.72:6443",
+      "status": "Online",
+      "layer": "Compute",
+      "lastCheck": "2026-04-25 16:52:17"
     },
     {
-      "name": "APRS Home iGate",
-      "type": "RF Edge System",
-      "address": "KJ5JCO-10",
-      "status": "Operational / Tuning",
-      "layer": "Edge"
-    },
-    {
-      "name": "APRS Mobile iGate",
-      "type": "Mobile Edge System",
-      "address": "KJ5JCO-15",
-      "status": "Building",
-      "layer": "Edge"
+      "name": "APRS-IS",
+      "type": "APRS Internet Service",
+      "address": "noam.aprs2.net:14580",
+      "status": "Online",
+      "layer": "Edge",
+      "lastCheck": "2026-04-25 16:52:17"
     }
   ]
 }
