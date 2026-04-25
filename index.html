@@ -22,6 +22,7 @@
       <nav>
         <ul class="nav-links">
           <li><a href="#snapshot">Snapshot</a></li>
+          <li><a href="#noc">NOC</a></li>
           <li><a href="#about">About</a></li>
           <li><a href="#projects">Projects</a></li>
           <li><a href="#resume">Resume</a></li>
@@ -103,48 +104,6 @@ building_real_systems</code></pre>
           </p>
         </div>
 
-        <section class="section noc-dashboard">
-  <div class="container">
-    <div class="section-heading">
-      <p class="section-label">Ced’s NOC</p>
-      <h2>Network Operations Dashboard</h2>
-      <p class="section-intro">
-        A portfolio view of the infrastructure, edge systems, and monitoring stack I’m building across Ced’s HomeLab.
-      </p>
-    </div>
-
-    <div class="noc-status-grid">
-      <div class="noc-status-card online">
-        <span class="status-dot"></span>
-        <h3>HomeLab Core</h3>
-        <p>Infrastructure services, VLANs, dashboards, and self-hosted systems.</p>
-        <small>Status: Active Build</small>
-      </div>
-
-      <div class="noc-status-card online">
-        <span class="status-dot"></span>
-        <h3>K3s Cluster</h3>
-        <p>Distributed container environment for service deployment and orchestration.</p>
-        <small>Status: Active Build</small>
-      </div>
-
-      <div class="noc-status-card warning">
-        <span class="status-dot"></span>
-        <h3>APRS iGate</h3>
-        <p>RF-to-IP edge system using Raspberry Pi, Direwolf, APRS-IS, and mobile expansion.</p>
-        <small>Status: Operational / Tuning</small>
-      </div>
-
-      <div class="noc-status-card planned">
-        <span class="status-dot"></span>
-        <h3>Unified Monitoring</h3>
-        <p>Future Grafana/Uptime Kuma view for services, nodes, and edge devices.</p>
-        <small>Status: Planned</small>
-      </div>
-    </div>
-  </div>
-</section>
-
         <div class="stats-grid">
           <div class="stat-card">
             <h3>12+</h3>
@@ -170,6 +129,47 @@ building_real_systems</code></pre>
             <span>Home + mobile APRS</span>
           </div>
         </div>
+      </div>
+    </section>
+
+    <section id="noc" class="section noc-dashboard">
+      <div class="container">
+        <div class="section-heading">
+          <p class="section-label">Ced’s NOC</p>
+          <h2>Live Systems Overview</h2>
+          <p class="section-intro">
+            Real infrastructure inventory from Ced’s HomeLab, K3s cluster, and APRS edge systems.
+          </p>
+        </div>
+
+        <div class="noc-command-bar">
+          <span class="status-dot"></span>
+          <span id="noc-status-text">Loading NOC status...</span>
+        </div>
+
+        <div class="noc-metrics-grid">
+          <div class="noc-metric">
+            <h3 id="metric-nodes">--</h3>
+            <p>Nodes</p>
+          </div>
+
+          <div class="noc-metric">
+            <h3 id="metric-services">--</h3>
+            <p>Services</p>
+          </div>
+
+          <div class="noc-metric">
+            <h3 id="metric-vlans">--</h3>
+            <p>VLANs</p>
+          </div>
+
+          <div class="noc-metric">
+            <h3 id="metric-edge">--</h3>
+            <p>Edge Systems</p>
+          </div>
+        </div>
+
+        <div id="noc-system-grid" class="noc-system-grid"></div>
       </div>
     </section>
 
@@ -440,7 +440,7 @@ building_real_systems</code></pre>
 
   <footer class="site-footer">
     <div class="container footer-content">
-      <p>© Chase Dumphord</p>
+      <p>© <span data-year></span> Chase Dumphord</p>
       <a href="#top" class="back-to-top">Back to top ↑</a>
     </div>
   </footer>

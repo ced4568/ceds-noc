@@ -1,0 +1,69 @@
+{
+  "nocName": "Ced's NOC",
+  "status": "Operational Build",
+  "lastUpdated": "Manual V1",
+  "summary": {
+    "nodes": "12+",
+    "services": "10+",
+    "vlans": "4",
+    "edgeSystems": "2"
+  },
+  "systems": [
+    {
+      "name": "Proxmox VE",
+      "type": "Virtualization",
+      "address": "10.10.30.250:8006",
+      "status": "Online",
+      "layer": "Infrastructure"
+    },
+    {
+      "name": "TrueNAS",
+      "type": "Storage",
+      "address": "10.10.30.143",
+      "status": "Online",
+      "layer": "Storage"
+    },
+    {
+      "name": "Nginx Proxy Manager",
+      "type": "Reverse Proxy",
+      "address": "10.10.30.210:81",
+      "status": "Online",
+      "layer": "Access"
+    },
+    {
+      "name": "Dashy",
+      "type": "Dashboard",
+      "address": "10.10.30.61:4000",
+      "status": "Online",
+      "layer": "Monitoring"
+    },
+    {
+      "name": "Jellyfin",
+      "type": "Media Service",
+      "address": "10.10.30.143:30013",
+      "status": "Online",
+      "layer": "Services"
+    },
+    {
+      "name": "K3s Cluster",
+      "type": "Kubernetes",
+      "address": "10.10.30.72 / 245 / 128",
+      "status": "Active Build",
+      "layer": "Compute"
+    },
+    {
+      "name": "APRS Home iGate",
+      "type": "RF Edge System",
+      "address": "KJ5JCO-10",
+      "status": "Operational / Tuning",
+      "layer": "Edge"
+    },
+    {
+      "name": "APRS Mobile iGate",
+      "type": "Mobile Edge System",
+      "address": "KJ5JCO-15",
+      "status": "Building",
+      "layer": "Edge"
+    }
+  ]
+}
