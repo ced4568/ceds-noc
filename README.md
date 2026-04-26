@@ -56,6 +56,25 @@ This demonstrates:
 
 ---
 
+## 🖼️ Live Dashboard Preview
+
+### 📊 Metrics Overview
+
+![NOC Metrics](./screenshots/noc-metrics.png)
+
+### 🖥️ Systems Overview
+
+![NOC Systems](./screenshots/noc-systems.png)
+
+---
+
+## 🔴 Live System Status
+
+![NOC Status](https://img.shields.io/badge/NOC-Operational-brightgreen?style=for-the-badge)
+![Systems](https://img.shields.io/badge/Systems-Online-blue?style=for-the-badge)
+![Edge](https://img.shields.io/badge/Edge-RF%20Active-orange?style=for-the-badge)
+
+---
 # 🧠 Featured System — Ced’s NOC (Network Operations Center)
 
 A real-time monitoring and observability platform built on top of my homelab infrastructure.
