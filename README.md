@@ -70,9 +70,10 @@ This demonstrates:
 
 ## 🔴 Live System Status
 
-![NOC Status](https://img.shields.io/badge/NOC-Operational-brightgreen?style=for-the-badge)
-![Systems](https://img.shields.io/badge/Systems-Online-blue?style=for-the-badge)
+![Ced's NOC](https://img.shields.io/endpoint?url=https://ced4568.github.io/ced-portfolio/data/noc-badge.json&style=for-the-badge)
+
 ![Edge](https://img.shields.io/badge/Edge-RF%20Active-orange?style=for-the-badge)
+![Portfolio](https://img.shields.io/badge/Portfolio-Live-blue?style=for-the-badge)
 
 ---
 # 🧠 Featured System — Ced’s NOC (Network Operations Center)
