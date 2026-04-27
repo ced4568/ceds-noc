@@ -11,28 +11,32 @@ with open(NOC_FILE, "r", encoding="utf-8") as file:
 status = data.get("status", "Unknown")
 summary = data.get("summary", {})
 
-online = summary.get("online", "?")
-offline = summary.get("offline", "?")
-services = summary.get("services", f"{online}/?")
+online = int(summary.get("online", 0))
+offline = int(summary.get("offline", 0))
+total = online + offline
 
-if status == "All Systems Online":
+# 🔥 Determine severity
+if offline == 0:
+    severity = "Healthy"
     color = "brightgreen"
-elif status == "Degraded":
+elif offline <= 2:
+    severity = "Degraded"
     color = "yellow"
 else:
+    severity = "Critical"
     color = "red"
+
+# 🔥 Build message
+message = f"{severity} | {online}/{total} online | {offline} offline"
 
 badge = {
     "schemaVersion": 1,
     "label": "Ced's NOC",
-    "message": f"{status} | {services} online | {offline} offline",
+    "message": message,
     "color": color
 }
-
-BADGE_FILE.parent.mkdir(parents=True, exist_ok=True)
 
 with open(BADGE_FILE, "w", encoding="utf-8") as file:
     json.dump(badge, file, indent=2)
 
-print(f"NOC badge written to {BADGE_FILE}")
-print(badge["message"])
+print(f"NOC badge updated: {message}")

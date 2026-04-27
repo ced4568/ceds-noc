@@ -1,7 +1,7 @@
 {
   "nocName": "Ced's NOC",
   "status": "All Systems Online",
-  "lastUpdated": "2026-04-26 17:50:50",
+  "lastUpdated": "2026-04-26 21:13:17",
   "summary": {
     "nodes": "12+",
     "services": "8/8",
@@ -19,8 +19,8 @@
       "severity": "Healthy",
       "layer": "Core Infrastructure",
       "label": "Hypervisor",
-      "latency": "4 ms",
-      "lastCheck": "2026-04-26 17:50:50"
+      "latency": "17 ms",
+      "lastCheck": "2026-04-26 21:13:17"
     },
     {
       "name": "TrueNAS",
@@ -30,8 +30,8 @@
       "severity": "Healthy",
       "layer": "Storage",
       "label": "NAS",
-      "latency": "0 ms",
-      "lastCheck": "2026-04-26 17:50:50"
+      "latency": "15 ms",
+      "lastCheck": "2026-04-26 21:13:17"
     },
     {
       "name": "Nginx Proxy Manager",
@@ -41,8 +41,8 @@
       "severity": "Healthy",
       "layer": "Access Layer",
       "label": "Proxy",
-      "latency": "3 ms",
-      "lastCheck": "2026-04-26 17:50:50"
+      "latency": "0 ms",
+      "lastCheck": "2026-04-26 21:13:17"
     },
     {
       "name": "Dashy",
@@ -52,8 +52,8 @@
       "severity": "Healthy",
       "layer": "Dashboard",
       "label": "Portal",
-      "latency": "11 ms",
-      "lastCheck": "2026-04-26 17:50:50"
+      "latency": "0 ms",
+      "lastCheck": "2026-04-26 21:13:17"
     },
     {
       "name": "Jellyfin",
@@ -64,7 +64,7 @@
       "layer": "Application Service",
       "label": "App",
       "latency": "0 ms",
-      "lastCheck": "2026-04-26 17:50:50"
+      "lastCheck": "2026-04-26 21:13:17"
     },
     {
       "name": "K3s API",
@@ -75,18 +75,18 @@
       "layer": "Compute Cluster",
       "label": "Cluster",
       "latency": "0 ms",
-      "lastCheck": "2026-04-26 17:50:50"
+      "lastCheck": "2026-04-26 21:13:17"
     },
     {
       "name": "APRS Home iGate",
       "type": "RF Edge Gateway",
       "address": "KJ5JCO-10 / Direwolf KISS 8001",
       "status": "Online",
-      "severity": "Critical",
+      "severity": "Degraded",
       "layer": "Edge / RF",
       "label": "iGate",
-      "latency": "324 ms",
-      "lastCheck": "2026-04-26 17:50:50"
+      "latency": "59 ms",
+      "lastCheck": "2026-04-26 21:13:17"
     },
     {
       "name": "APRS-IS",
@@ -96,8 +96,8 @@
       "severity": "Degraded",
       "layer": "Edge / RF",
       "label": "External",
-      "latency": "98 ms",
-      "lastCheck": "2026-04-26 17:50:50"
+      "latency": "61 ms",
+      "lastCheck": "2026-04-26 21:13:17"
     }
   ]
 }
