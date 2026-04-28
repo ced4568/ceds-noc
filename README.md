@@ -4,32 +4,32 @@ Digital Systems | Infrastructure | RF Edge Systems
 
 <h3>
 I build real-world systems that combine data, automation, and infrastructure. 
-From dashboards and full-stack apps to homelab environments, everything I create is designed to solve practical problems and scale.
+From monitoring platforms and dashboards to full infrastructure environments, everything I create is designed to solve practical problems and scale.
 </h3>
 
 <img align="right" alt="Coding Gorilla" width="400px" style="padding-right:10px;" src="https://gifdb.com/images/thumbnail/monkey-laptop-coding-miys12p5izw3s11s.gif" />
 
 <ul>
- <li>🚀 Currently building data dashboards & system monitoring tools</li>
- <li>🖥️ Running a full homelab (Proxmox, Kubernetes, Docker)</li> 
- <li>⚙️ Focused on automation, infrastructure, and real-world systems</li>
- <li>🧠 Ask me about Raspberry Pi clusters, K3s, or system design</li>
+ <li>🚀 Currently building system monitoring platforms & dashboards</li>
+ <li>🖥️ Running a full homelab (Proxmox HA Cluster, Kubernetes, Docker)</li> 
+ <li>⚙️ Focused on infrastructure, automation, and observability</li>
+ <li>🧠 Ask me about K3s clusters, system monitoring, or homelab design</li>
  <li>📫 Reach me: Chasedumphord@gmail.com</li>
- <li>⚡ Fun fact: I have ball pythons 🐍 along with dogs</li>
 </ul>
 
 ---
 
-# 🧠 Ced’s Portfolio System
+# 🧠 Ced’s NOC System
 
-👉 **Live Site:** https://ced4568.github.io/ced-portfolio
+👉 **Portfolio Site:** https://chasedumphord.com  
+👉 **Live NOC Dashboard:** https://noc.chasedumphord.com  
 
-This repository represents a **live system portfolio**, not just static projects.
+This repository represents a **live Network Operations Center (NOC) system**, not just a static portfolio.
 
 It showcases:
 
-* 📊 **Ced’s NOC Dashboard** (live system monitoring)
-* 🧠 **HomeLab Infrastructure** (Proxmox, VLANs, services)
+* 📊 **Ced’s NOC Dashboard** (real system monitoring)
+* 🧠 **HomeLab Infrastructure** (HA virtualization, VLANs, services)
 * ☸️ **K3s Cluster** (distributed compute)
 * 📡 **APRS iGate (RF Edge System)**
 
@@ -39,20 +39,27 @@ It showcases:
 
 A central visibility layer for all systems.
 
-### 🔍 What it shows:
+This dashboard includes real Grafana, Prometheus, and Blackbox Exporter monitoring for live HomeLab services.
+
+---
+
+## 🔍 What it shows:
 
 * Infrastructure health
 * Service availability
 * Network segmentation
 * RF edge system status
 
-### 🧠 Why it matters:
+---
+
+## 🧠 Why it matters:
 
 This demonstrates:
 
 * System monitoring mindset
 * Operational visibility
 * Real-world infrastructure awareness
+* Ability to translate data into actionable insights
 
 ---
 
@@ -76,24 +83,29 @@ This demonstrates:
 ![Portfolio](https://img.shields.io/badge/Portfolio-Live-blue?style=for-the-badge)
 
 ---
+
 # 🧠 Featured System — Ced’s NOC (Network Operations Center)
 
 A real-time monitoring and observability platform built on top of my homelab infrastructure.
 
-### 🔍 What it demonstrates:
+---
+
+## 🔍 What it demonstrates:
 
 * Live system monitoring (services, nodes, edge systems)
 * Infrastructure visibility across VLANs and clusters
-* Custom dashboard UI (portfolio + operational view)
 * Service health tracking (latency, uptime, status)
-* Real data ingestion (not simulated)
+* Real data ingestion (NOT simulated)
+* Dashboard design for operational awareness
 
-### ⚙️ Stack:
+---
 
-* Python (health checks / data generation)
-* JSON API (status feed)
-* JavaScript (dynamic UI rendering)
-* Future: Grafana + Prometheus integration
+## ⚙️ Monitoring Stack:
+
+* Grafana (Visualization)
+* Prometheus (Metrics collection)
+* Blackbox Exporter (Service uptime & latency checks)
+* Uptime Kuma (External monitoring layer)
 
 👉 This is the **core system** that ties everything together.
 
@@ -103,12 +115,38 @@ A real-time monitoring and observability platform built on top of my homelab inf
 
 Real-world environment used to simulate production systems and host services.
 
-* Proxmox virtualization platform
-* K3s Kubernetes cluster (Raspberry Pi)
+This is the backbone of Ced’s NOC — where all systems, services, and monitoring originate.
+
+---
+
+## ⚙️ Core Infrastructure
+
+* **Proxmox HA Cluster (High Availability Virtualization)**
+* K3s Kubernetes cluster (Raspberry Pi - 12 nodes)
 * TrueNAS storage system
+* Docker / containerized workloads
+
+---
+
+## 🌐 Networking Layer
+
+* VLAN segmentation  
+  - Main Network  
+  - IoT Network  
+  - HomeLab Network (10.10.30.0/24)  
+  - Guest Network  
+
 * Nginx Proxy Manager (external access layer)
-* VLAN segmentation (Main / IoT / HomeLab / Guest)
-* Monitoring stack (Grafana, Prometheus, Uptime Kuma)
+* Cloudflare Tunnels (secure remote access)
+
+---
+
+## 📊 Monitoring Stack (LIVE)
+
+* Grafana (Dashboards)
+* Prometheus (Metrics)
+* Blackbox Exporter (Service Monitoring)
+* Uptime Kuma (External Monitoring)
 
 👉 The NOC dashboard is built directly on top of this environment.
 
@@ -117,6 +155,10 @@ Real-world environment used to simulate production systems and host services.
 # 📡 Edge System — APRS iGate (RF → Internet Gateway)
 
 A real-world RF system that feeds live data into infrastructure.
+
+---
+
+## ⚙️ System Components
 
 * Raspberry Pi + Direwolf APRS TNC
 * Audio chain tuning (critical for decode accuracy)
@@ -132,8 +174,8 @@ https://github.com/ced4568/ceds-aprs-igate
 
 This system bridges:
 
-```
-RF (radio signals) → Digital Infrastructure → Internet (APRS-IS)
+```text
+RF radio signals → Raspberry Pi / Direwolf → APRS-IS → Digital Infrastructure
 ```
 
 ---
@@ -151,14 +193,13 @@ This was tuned using:
 
 ---
 
-# 🧠 Featured Projects
+# 🧠 Featured Systems
 
 <ul>
  <li>
-  <b>🧠 Ced’s NOC Dashboard</b><br/>
-  Real-time monitoring system providing visibility into infrastructure, services, and edge systems.<br/>
-  <b>Highlights:</b> Live status tracking, latency monitoring, alert panel, dynamic UI updates.<br/>
-  <b>Source:</b> <a href="https://github.com/ced4568/ceds-homelab">ceds-homelab</a>
+  <b>📊 Ced’s NOC Dashboard</b><br/>
+  Enterprise-style monitoring platform providing real-time visibility into infrastructure, services, and edge systems.<br/>
+  <b>Highlights:</b> Prometheus metrics, Blackbox monitoring, service health tracking, Grafana dashboards.<br/>
  </li>
 
  <br/>
@@ -166,8 +207,7 @@ This was tuned using:
  <li>
   <b>🧱 Ced’s Home Lab</b><br/>
   Full infrastructure environment simulating production systems using virtualization and Kubernetes.<br/>
-  <b>Highlights:</b> Proxmox VE, K3s cluster (12-node Pi cluster), VLAN segmentation, reverse proxy, monitoring stack.<br/>
-  <b>Source:</b> <a href="https://github.com/ced4568/ceds-homelab">ceds-homelab</a>
+  <b>Highlights:</b> Proxmox HA cluster, 12-node K3s cluster, VLAN segmentation, reverse proxy, monitoring stack.<br/>
  </li>
 
  <br/>
@@ -176,7 +216,6 @@ This was tuned using:
   <b>📡 APRS iGate (RF Edge System)</b><br/>
   RF-to-internet gateway ingesting real-world radio data into digital systems.<br/>
   <b>Highlights:</b> Audio tuning, Direwolf APRS TNC, APRS-IS integration, live beacon ingestion.<br/>
-  <b>Source:</b> <a href="https://github.com/ced4568/ceds-aprs-igate">ceds-aprs-igate</a>
  </li>
 </ul>
 
@@ -184,7 +223,7 @@ This was tuned using:
 
 # 🧰 Tech Stack
 
-### ⚡ Core Technologies
+## ⚡ Core Technologies
 
 <img align="left" alt="TypeScript" width="30px" style="padding-right:10px;" src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/typescript/typescript-plain.svg" />
 <img align="left" alt="Git" width="30px" style="padding-right:10px;" src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/git/git-original.svg" />
@@ -202,36 +241,34 @@ This was tuned using:
 
 <br /><br />
 
----
+## 🖥️ Infrastructure & Systems
 
-### 🖥️ Infrastructure & Systems
-
-* Proxmox VE (Virtualization)
+* Proxmox HA Cluster (Virtualization)
 * K3s Kubernetes (Raspberry Pi Cluster)
 * Docker / Containerized Services
 * TrueNAS (Storage)
 
-### 📊 Monitoring & Observability
+## 📊 Monitoring & Observability
 
 * Grafana (Dashboards)
-* Prometheus (Metrics - in progress)
-* Uptime Kuma (Service Monitoring)
-* Custom NOC Dashboard (Python + JSON + JS)
+* Prometheus (Metrics)
+* Blackbox Exporter (Service Monitoring)
+* Uptime Kuma (External Monitoring)
 
-### 🌐 Networking & Access
+## 🌐 Networking & Access
 
 * Nginx Proxy Manager (Reverse Proxy)
 * Cloudflare Tunnels (Secure External Access)
 * VLAN Segmentation (UniFi Network)
 
-### 📡 Edge & RF Systems
+## 📡 Edge & RF Systems
 
 * Direwolf (APRS TNC)
 * APRS-IS Integration
 * Raspberry Pi iGate Systems
 * Audio Signal Processing / Tuning
 
-### 💻 Development
+## 💻 Development
 
 * Python (Automation / Data Collection)
 * JavaScript (Frontend Dashboard UI)
@@ -239,25 +276,21 @@ This was tuned using:
 * Bash (System Automation)
 * Git / GitHub (Version Control)
 
----
-
 # 📈 Roadmap
 
-* [ ] Grafana + Prometheus integration
-* [ ] Real-time metrics ingestion
-* [ ] NOC alerting system
+* [x] Grafana + Prometheus deployed
+* [x] Real service monitoring (Blackbox)
+* [ ] Response time dashboards
+* [ ] Alerting system (Prometheus alerts)
+* [ ] Full NOC dashboard layout (v2)
 * [ ] Mobile APRS iGate deployment
-* [ ] Advanced system dashboards
-
----
 
 # 👤 Connect With Me
 
 [LinkedIn](https://www.linkedin.com/in/toochase-dumphord/)
-[GitHub](https://github.com/ced4568)
 
----
+[GitHub](https://github.com/ced4568)
 
 ## ⚡ Final Note
 
-> This is not a static portfolio — it is a **live representation of working systems.**
+This is not a static portfolio — it is a live representation of real infrastructure, monitoring, and edge systems working together.
