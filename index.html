@@ -4,166 +4,442 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-  <title>Ced’s NOC | Live Systems Dashboard</title>
+  <title>Ced's NOC | Live Systems Dashboard</title>
 
   <meta
     name="description"
-    content="Ced’s NOC - live systems dashboard for homelab infrastructure, K3s, services, and APRS RF edge systems."
+    content="Ced's NOC — live network operations center dashboard showing real-time infrastructure health, service status, and edge system monitoring."
   />
 
-  <link rel="stylesheet" href="style.css" />
+  <!-- Open Graph -->
+  <meta property="og:title" content="Ced's NOC | Live Systems Dashboard" />
+  <meta property="og:description" content="Live infrastructure visibility — Proxmox, K3s, TrueNAS, APRS edge systems." />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://noc.chasedumphord.com" />
+
+  <!-- Favicons (from main portfolio) -->
+  <link rel="icon" type="image/png" sizes="32x32"   href="https://chasedumphord.com/assets/favicons/favicon-32x32.png" />
+  <link rel="icon" type="image/png" sizes="16x16"   href="https://chasedumphord.com/assets/favicons/favicon-16x16.png" />
+  <link rel="icon" type="image/png" sizes="192x192" href="https://chasedumphord.com/assets/favicons/favicon-192x192.png" />
+  <link rel="apple-touch-icon"      sizes="512x512" href="https://chasedumphord.com/assets/favicons/favicon-512x512.png" />
+  <link rel="shortcut icon"                         href="https://chasedumphord.com/assets/favicons/favicon.ico" />
+
+  <meta name="robots" content="index, follow" />
+  <meta name="author" content="Chase Dumphord" />
+
+  <!-- Fonts — same as main site -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&family=Syne:wght@700;800&family=DM+Sans:wght@400;500;700&display=swap" rel="stylesheet" />
+
+  <!-- Shared stylesheet from main portfolio -->
+  <link rel="stylesheet" href="https://chasedumphord.com/style.css" />
+
+  <!-- NOC-specific styles -->
+  <style>
+    /* ── NOC page overrides & extras ── */
+    .noc-page-hero {
+      padding: 3.5rem 0 2rem;
+      border-bottom: 1px solid var(--line);
+    }
+
+    .noc-page-hero .eyebrow {
+      margin-bottom: 0.6rem;
+    }
+
+    .noc-page-title {
+      font-family: var(--font-display);
+      font-size: clamp(2rem, 4vw, 3.2rem);
+      font-weight: 800;
+      margin: 0 0 0.75rem;
+      line-height: 1.1;
+    }
+
+    .noc-page-title span {
+      color: var(--accent-2);
+    }
+
+    .noc-page-lead {
+      color: var(--muted);
+      font-size: 1rem;
+      max-width: 60ch;
+      margin: 0 0 1.5rem;
+    }
+
+    .noc-page-meta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.6rem 1.4rem;
+      font-family: var(--font-mono);
+      font-size: 0.78rem;
+      color: var(--muted);
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+
+    .noc-page-meta a { color: var(--muted); }
+    .noc-page-meta a:hover { color: var(--accent-2); }
+
+    /* Full-width NOC content area */
+    .noc-full {
+      padding: 2.5rem 0 4rem;
+    }
+
+    /* Uptime summary bar */
+    .uptime-bar {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.75rem;
+      margin-bottom: 1.5rem;
+    }
+
+    .uptime-pill {
+      font-family: var(--font-mono);
+      font-size: 0.76rem;
+      padding: 0.35rem 0.75rem;
+      border-radius: 999px;
+      border: 1px solid var(--line);
+      color: var(--muted);
+      background: rgba(255,255,255,0.03);
+    }
+
+    .uptime-pill.online {
+      color: var(--accent-2);
+      border-color: rgba(94, 250, 204, 0.3);
+      background: rgba(94, 250, 204, 0.06);
+    }
+
+    .uptime-pill.warning {
+      color: var(--warning);
+      border-color: rgba(242, 204, 96, 0.3);
+      background: rgba(242, 204, 96, 0.06);
+    }
+
+    .uptime-pill.offline {
+      color: var(--danger);
+      border-color: rgba(255, 95, 86, 0.3);
+      background: rgba(255, 95, 86, 0.06);
+    }
+
+    /* Layer filter tabs */
+    .layer-tabs {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      margin-bottom: 1.5rem;
+    }
+
+    .layer-tab {
+      font-family: var(--font-mono);
+      font-size: 0.76rem;
+      font-weight: 700;
+      padding: 0.35rem 0.85rem;
+      border-radius: 999px;
+      border: 1px solid var(--line);
+      color: var(--muted);
+      background: transparent;
+      cursor: pointer;
+      transition: all 0.15s;
+    }
+
+    .layer-tab:hover,
+    .layer-tab.active {
+      color: var(--accent-2);
+      border-color: rgba(94, 250, 204, 0.35);
+      background: rgba(94, 250, 204, 0.07);
+    }
+
+    /* Roadmap section on NOC page */
+    .noc-roadmap {
+      margin-top: 3rem;
+      padding-top: 2.5rem;
+      border-top: 1px solid var(--line);
+    }
+
+    /* Stack info footer on NOC page */
+    .noc-stack-bar {
+      margin-top: 2.5rem;
+      padding: 1rem 1.25rem;
+      border-radius: var(--radius);
+      background: rgba(0,0,0,0.2);
+      border: 1px solid var(--line);
+      font-family: var(--font-mono);
+      font-size: 0.78rem;
+      color: var(--muted);
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem 1.5rem;
+      align-items: center;
+    }
+
+    .noc-stack-bar strong {
+      color: var(--accent-2);
+    }
+
+    @media (max-width: 620px) {
+      .layer-tabs { gap: 0.4rem; }
+      .layer-tab  { font-size: 0.7rem; padding: 0.3rem 0.65rem; }
+    }
+  </style>
 </head>
 
 <body>
+
+  <!-- ═══════════════════════════════ NAV ═══════════════════════════════ -->
   <header class="site-header">
     <div class="container nav">
-      <a href="#top" class="logo">Ced’s NOC</a>
+      <a href="https://chasedumphord.com" class="logo">Ced<span class="logo-cursor">_</span></a>
 
       <nav>
         <ul class="nav-links">
-          <li><a href="#noc">Live Systems</a></li>
-          <li><a href="#vision">Roadmap</a></li>
-          <li>
-            <a href="https://chasedumphord.com" target="_blank" rel="noopener noreferrer">
-              Portfolio
-            </a>
-          </li>
-          <li>
-            <a href="https://github.com/ced4568/ceds-noc" target="_blank" rel="noopener noreferrer">
-              GitHub
-            </a>
-          </li>
+          <li><a href="https://chasedumphord.com/#snapshot">Snapshot</a></li>
+          <li><a href="https://chasedumphord.com/#about">About</a></li>
+          <li><a href="https://chasedumphord.com/#projects">Projects</a></li>
+          <li><a href="https://chasedumphord.com/#stack">Stack</a></li>
+          <li><a href="https://chasedumphord.com/#contact">Contact</a></li>
+          <li><a href="https://chasedumphord.com/assets/images/ChaseD_Resume.pdf" target="_blank" rel="noopener noreferrer">Resume</a></li>
         </ul>
       </nav>
     </div>
   </header>
 
   <main id="top">
-    <section class="hero noc-hero">
+
+    <!-- ═══════════════════════════════ NOC HERO ═══════════════════════════════ -->
+    <div class="noc-page-hero">
       <div class="container">
-        <div class="hero-text">
-          <p class="eyebrow">Network Operations • Infrastructure • Monitoring • RF Edge Systems</p>
+        <p class="eyebrow">
+          <span class="eyebrow-dot"></span>
+          Ced's NOC • Live Infrastructure Dashboard • Auto-refresh: 30s
+        </p>
 
-          <h1>Ced’s NOC Dashboard</h1>
+        <h1 class="noc-page-title">
+          Live Systems <span>Dashboard</span>
+        </h1>
 
-          <p class="lead">
-            A live operational dashboard for tracking homelab infrastructure, service health,
-            K3s systems, network layers, and APRS RF edge systems.
-          </p>
+        <p class="noc-page-lead">
+          Real-time visibility into Ced's HomeLab infrastructure — Proxmox, K3s,
+          TrueNAS, APRS RF edge systems, and self-hosted services.
+          Not simulated. Not a demo. Running hardware.
+        </p>
 
-          <div class="hero-actions">
-            <a class="btn btn-primary" href="#noc">View Live Systems</a>
-            <a class="btn btn-secondary" href="https://chasedumphord.com" target="_blank" rel="noopener noreferrer">
-              Main Portfolio
-            </a>
-          </div>
-        </div>
+        <ul class="noc-page-meta">
+          <li>📍 Oxford, MS</li>
+          <li><a href="https://chasedumphord.com">← Portfolio</a></li>
+          <li><a href="https://github.com/ced4568" target="_blank" rel="noopener noreferrer">github/ced4568</a></li>
+        </ul>
       </div>
-    </section>
+    </div>
 
-    <section id="noc" class="section noc-dashboard">
+    <!-- ═══════════════════════════════ NOC DASHBOARD ═══════════════════════════════ -->
+    <div class="noc-full">
       <div class="container">
-        <div class="section-heading">
-          <p class="section-label">Ced’s NOC</p>
-          <h2>Live Systems Overview</h2>
-          <p class="section-intro">
-            Real infrastructure inventory from Ced’s HomeLab, K3s cluster, and APRS edge systems.
-          </p>
-        </div>
 
+        <!-- Status command bar -->
         <div class="noc-command-bar">
-          <span class="status-dot"></span>
-          <span id="noc-status-text">Loading NOC status...</span>
+          <span class="status-dot" id="noc-dot"></span>
+          <span id="noc-status-text">Connecting to NOC feed...</span>
+          <span class="noc-refresh-badge" id="noc-refresh-badge"></span>
         </div>
 
         <p class="noc-proof">
-          Built using real infrastructure: Proxmox • K3s • TrueNAS • VLAN segmentation • APRS RF Edge Systems
+          Proxmox • K3s • TrueNAS • VLAN Segmentation • APRS RF Edge Systems
         </p>
 
+        <!-- Uptime summary pills (populated by JS) -->
+        <div class="uptime-bar" id="uptime-bar"></div>
+
+        <!-- Metrics -->
         <div class="noc-metrics-grid">
           <div class="noc-metric">
             <h3 id="metric-nodes">--</h3>
             <p>Infrastructure Nodes</p>
           </div>
-
           <div class="noc-metric">
             <h3 id="metric-services">--</h3>
             <p>Services Online</p>
           </div>
-
           <div class="noc-metric">
             <h3 id="metric-vlans">--</h3>
             <p>Network Segments</p>
           </div>
-
           <div class="noc-metric">
             <h3 id="metric-edge">--</h3>
             <p>Edge Systems</p>
           </div>
         </div>
 
+        <!-- Alert panel -->
         <div class="noc-alert-panel">
           <div class="noc-alert-header">
-            <h3>🚨 NOC Alert Panel</h3>
-            <span>Top 3 System Notes</span>
+            <h3>🚨 Alert Panel</h3>
+            <span>Top 3 Priority Systems</span>
           </div>
-
           <div id="noc-alert-list" class="noc-alert-list">
-            <p>Loading alerts...</p>
+            <p class="noc-loading">Awaiting data feed...</p>
           </div>
         </div>
 
-        <div id="noc-system-grid" class="noc-system-grid"></div>
-      </div>
-    </section>
+        <!-- Layer filter tabs -->
+        <div class="layer-tabs" id="layer-tabs">
+          <button class="layer-tab active" data-layer="all">All Systems</button>
+        </div>
 
-    <section id="vision" class="section noc-section">
-      <div class="container">
-        <div class="section-heading">
-          <p class="section-label">NOC Roadmap</p>
-          <h2>📊 Ced’s NOC Vision</h2>
-          <p class="section-intro">
-            Ced’s NOC is being built as a staged monitoring and systems-visibility platform for HomeLab,
-            Kubernetes, edge devices, and future production-style dashboards.
+        <!-- System cards grid -->
+        <div id="noc-system-grid" class="noc-system-grid"></div>
+
+        <!-- Fallback -->
+        <div id="noc-fallback" class="noc-fallback" style="display:none;">
+          <p class="noc-fallback-msg">
+            📡 NOC feed unavailable from this context — systems run locally.<br/>
+            Data updates when the local pipeline pushes a fresh noc-status.json.
           </p>
         </div>
 
-        <div class="noc-grid">
-          <div class="noc-card">
-            <h3>✅ Current: Live JSON Dashboard</h3>
-            <p>
-              JSON-driven dashboard that displays real inventory, online/offline checks, service labels,
-              latency, and last-check timestamps.
-            </p>
-          </div>
+        <!-- Stack info bar -->
+        <div class="noc-stack-bar">
+          <span><strong>Stack:</strong> Python health checks → JSON → JS dashboard</span>
+          <span><strong>Next:</strong> Grafana + Prometheus integration</span>
+          <span><strong>Source:</strong>
+            <a href="https://github.com/ced4568/ceds-homelab" target="_blank" rel="noopener noreferrer">
+              github/ceds-homelab
+            </a>
+          </span>
+        </div>
 
-          <div class="noc-card">
-            <h3>⚙️ Next: Automated Data Updates</h3>
-            <p>
-              Scheduled local scripts will refresh system status data automatically and push
-              dashboard-ready JSON into the live NOC.
-            </p>
-          </div>
+        <!-- NOC Roadmap -->
+        <div class="noc-roadmap">
+          <p class="section-label">// noc roadmap</p>
+          <h2 class="section-h2" style="font-family:var(--font-display);font-size:1.6rem;margin:0 0 1.25rem;">Build Stages</h2>
 
-          <div class="noc-card">
-            <h3>📈 Future: Grafana + Prometheus</h3>
-            <p>
-              Deeper monitoring stack for Proxmox, TrueNAS, K3s, Raspberry Pi nodes, Uptime Kuma,
-              and APRS edge systems.
-            </p>
+          <div class="noc-grid">
+            <div class="noc-card">
+              <div class="noc-card-badge done">✅ Live</div>
+              <h3>Portfolio NOC</h3>
+              <p>
+                JSON-driven dashboard showing real inventory, online/offline checks,
+                service labels, latency, and last-check timestamps.
+              </p>
+            </div>
+            <div class="noc-card">
+              <div class="noc-card-badge next">⚙️ Next</div>
+              <h3>Automated Data Updates</h3>
+              <p>
+                Scheduled scripts auto-refresh system status and push dashboard-ready
+                JSON on a cron interval — no manual updates.
+              </p>
+            </div>
+            <div class="noc-card">
+              <div class="noc-card-badge future">📈 Future</div>
+              <h3>Grafana + Prometheus</h3>
+              <p>
+                Full observability stack for Proxmox, TrueNAS, K3s, Raspberry Pi,
+                Uptime Kuma, and APRS edge systems with real-time metrics.
+              </p>
+            </div>
           </div>
         </div>
+
       </div>
-    </section>
+    </div>
+
   </main>
 
+  <!-- ═══════════════════════════════ FOOTER ═══════════════════════════════ -->
   <footer class="site-footer">
     <div class="container footer-content">
-      <p>© <span data-year></span> Chase Dumphord • Ced’s NOC</p>
-      <a href="#top" class="back-to-top">Back to top ↑</a>
+      <p>© <span data-year></span> Chase Dumphord — <span class="footer-mono">noc.chasedumphord.com</span></p>
+      <a href="#top" class="back-to-top">↑ back to top</a>
     </div>
   </footer>
 
-  <script src="script.js"></script>
+  <!-- Shared script from main portfolio -->
+  <script src="https://chasedumphord.com/script.js"></script>
+
+  <!-- NOC page extras — layer filter tabs + uptime pills -->
+  <script>
+    // ── Layer filter tabs ──────────────────────────────────────────
+    // Populated after NOC data loads. Filters the system grid by layer.
+    let allSystems = [];
+
+    const originalLoad = window.loadNocStatus;
+
+    document.addEventListener("DOMContentLoaded", () => {
+      // Hook into data after the shared script loads it
+      const observer = new MutationObserver(() => {
+        const cards = document.querySelectorAll(".noc-system-card");
+        if (cards.length > 0) {
+          buildLayerTabs();
+          buildUptimePills();
+          observer.disconnect();
+        }
+      });
+
+      const grid = document.getElementById("noc-system-grid");
+      if (grid) observer.observe(grid, { childList: true });
+    });
+
+    function buildLayerTabs() {
+      const cards = document.querySelectorAll(".noc-system-card");
+      const layers = new Set(["all"]);
+
+      cards.forEach(card => {
+        const layerEl = card.querySelector(".noc-system-top span:last-child");
+        if (layerEl) layers.add(layerEl.textContent.trim());
+      });
+
+      const tabContainer = document.getElementById("layer-tabs");
+      tabContainer.innerHTML = "";
+
+      layers.forEach(layer => {
+        const btn = document.createElement("button");
+        btn.className = "layer-tab" + (layer === "all" ? " active" : "");
+        btn.dataset.layer = layer;
+        btn.textContent = layer === "all" ? "All Systems" : layer;
+        btn.addEventListener("click", () => filterByLayer(layer, btn));
+        tabContainer.appendChild(btn);
+      });
+    }
+
+    function filterByLayer(layer, activeBtn) {
+      document.querySelectorAll(".layer-tab").forEach(t => t.classList.remove("active"));
+      activeBtn.classList.add("active");
+
+      document.querySelectorAll(".noc-system-card").forEach(card => {
+        if (layer === "all") {
+          card.style.display = "";
+          return;
+        }
+        const layerEl = card.querySelector(".noc-system-top span:last-child");
+        card.style.display =
+          layerEl && layerEl.textContent.trim() === layer ? "" : "none";
+      });
+    }
+
+    function buildUptimePills() {
+      const bar = document.getElementById("uptime-bar");
+      if (!bar) return;
+
+      const cards = document.querySelectorAll(".noc-system-card");
+      let online = 0, warning = 0, offline = 0;
+
+      cards.forEach(card => {
+        const dot = card.querySelector(".mini-status");
+        if (!dot) return;
+        if (dot.classList.contains("online"))       online++;
+        else if (dot.classList.contains("warning")) warning++;
+        else if (dot.classList.contains("offline")) offline++;
+      });
+
+      bar.innerHTML = `
+        <span class="uptime-pill online">● ${online} Online</span>
+        ${warning > 0 ? `<span class="uptime-pill warning">● ${warning} Degraded</span>` : ""}
+        ${offline > 0 ? `<span class="uptime-pill offline">● ${offline} Offline</span>` : ""}
+        <span class="uptime-pill">${online + warning + offline} Total Systems</span>
+      `;
+    }
+  </script>
+
 </body>
 </html>
