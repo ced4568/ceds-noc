@@ -1,445 +1,376 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-
-  <title>Ced's NOC | Live Systems Dashboard</title>
-
-  <meta
-    name="description"
-    content="Ced's NOC — live network operations center dashboard showing real-time infrastructure health, service status, and edge system monitoring."
-  />
-
-  <!-- Open Graph -->
-  <meta property="og:title" content="Ced's NOC | Live Systems Dashboard" />
-  <meta property="og:description" content="Live infrastructure visibility — Proxmox, K3s, TrueNAS, APRS edge systems." />
-  <meta property="og:type" content="website" />
-  <meta property="og:url" content="https://noc.chasedumphord.com" />
-
-  <!-- Favicons (from main portfolio) -->
-  <link rel="icon" type="image/png" sizes="32x32"   href="https://chasedumphord.com/assets/favicons/favicon-32x32.png" />
-  <link rel="icon" type="image/png" sizes="16x16"   href="https://chasedumphord.com/assets/favicons/favicon-16x16.png" />
-  <link rel="icon" type="image/png" sizes="192x192" href="https://chasedumphord.com/assets/favicons/favicon-192x192.png" />
-  <link rel="apple-touch-icon"      sizes="512x512" href="https://chasedumphord.com/assets/favicons/favicon-512x512.png" />
-  <link rel="shortcut icon"                         href="https://chasedumphord.com/assets/favicons/favicon.ico" />
-
-  <meta name="robots" content="index, follow" />
-  <meta name="author" content="Chase Dumphord" />
-
-  <!-- Fonts — same as main site -->
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&family=Syne:wght@700;800&family=DM+Sans:wght@400;500;700&display=swap" rel="stylesheet" />
-
-  <!-- Shared stylesheet from main portfolio -->
-  <link rel="stylesheet" href="https://chasedumphord.com/style.css" />
-
-  <!-- NOC-specific styles -->
-  <style>
-    /* ── NOC page overrides & extras ── */
-    .noc-page-hero {
-      padding: 3.5rem 0 2rem;
-      border-bottom: 1px solid var(--line);
-    }
-
-    .noc-page-hero .eyebrow {
-      margin-bottom: 0.6rem;
-    }
-
-    .noc-page-title {
-      font-family: var(--font-display);
-      font-size: clamp(2rem, 4vw, 3.2rem);
-      font-weight: 800;
-      margin: 0 0 0.75rem;
-      line-height: 1.1;
-    }
-
-    .noc-page-title span {
-      color: var(--accent-2);
-    }
-
-    .noc-page-lead {
-      color: var(--muted);
-      font-size: 1rem;
-      max-width: 60ch;
-      margin: 0 0 1.5rem;
-    }
-
-    .noc-page-meta {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 0.6rem 1.4rem;
-      font-family: var(--font-mono);
-      font-size: 0.78rem;
-      color: var(--muted);
-      list-style: none;
-      padding: 0;
-      margin: 0;
-    }
-
-    .noc-page-meta a { color: var(--muted); }
-    .noc-page-meta a:hover { color: var(--accent-2); }
-
-    /* Full-width NOC content area */
-    .noc-full {
-      padding: 2.5rem 0 4rem;
-    }
-
-    /* Uptime summary bar */
-    .uptime-bar {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 0.75rem;
-      margin-bottom: 1.5rem;
-    }
-
-    .uptime-pill {
-      font-family: var(--font-mono);
-      font-size: 0.76rem;
-      padding: 0.35rem 0.75rem;
-      border-radius: 999px;
-      border: 1px solid var(--line);
-      color: var(--muted);
-      background: rgba(255,255,255,0.03);
-    }
-
-    .uptime-pill.online {
-      color: var(--accent-2);
-      border-color: rgba(94, 250, 204, 0.3);
-      background: rgba(94, 250, 204, 0.06);
-    }
-
-    .uptime-pill.warning {
-      color: var(--warning);
-      border-color: rgba(242, 204, 96, 0.3);
-      background: rgba(242, 204, 96, 0.06);
-    }
-
-    .uptime-pill.offline {
-      color: var(--danger);
-      border-color: rgba(255, 95, 86, 0.3);
-      background: rgba(255, 95, 86, 0.06);
-    }
-
-    /* Layer filter tabs */
-    .layer-tabs {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 0.5rem;
-      margin-bottom: 1.5rem;
-    }
-
-    .layer-tab {
-      font-family: var(--font-mono);
-      font-size: 0.76rem;
-      font-weight: 700;
-      padding: 0.35rem 0.85rem;
-      border-radius: 999px;
-      border: 1px solid var(--line);
-      color: var(--muted);
-      background: transparent;
-      cursor: pointer;
-      transition: all 0.15s;
-    }
-
-    .layer-tab:hover,
-    .layer-tab.active {
-      color: var(--accent-2);
-      border-color: rgba(94, 250, 204, 0.35);
-      background: rgba(94, 250, 204, 0.07);
-    }
-
-    /* Roadmap section on NOC page */
-    .noc-roadmap {
-      margin-top: 3rem;
-      padding-top: 2.5rem;
-      border-top: 1px solid var(--line);
-    }
-
-    /* Stack info footer on NOC page */
-    .noc-stack-bar {
-      margin-top: 2.5rem;
-      padding: 1rem 1.25rem;
-      border-radius: var(--radius);
-      background: rgba(0,0,0,0.2);
-      border: 1px solid var(--line);
-      font-family: var(--font-mono);
-      font-size: 0.78rem;
-      color: var(--muted);
-      display: flex;
-      flex-wrap: wrap;
-      gap: 0.5rem 1.5rem;
-      align-items: center;
-    }
-
-    .noc-stack-bar strong {
-      color: var(--accent-2);
-    }
-
-    @media (max-width: 620px) {
-      .layer-tabs { gap: 0.4rem; }
-      .layer-tab  { font-size: 0.7rem; padding: 0.3rem 0.65rem; }
-    }
-  </style>
-</head>
-
-<body>
-
-  <!-- ═══════════════════════════════ NAV ═══════════════════════════════ -->
-  <header class="site-header">
-    <div class="container nav">
-      <a href="https://chasedumphord.com" class="logo">Ced<span class="logo-cursor">_</span></a>
-
-      <nav>
-        <ul class="nav-links">
-          <li><a href="https://chasedumphord.com/#snapshot">Snapshot</a></li>
-          <li><a href="https://chasedumphord.com/#about">About</a></li>
-          <li><a href="https://chasedumphord.com/#projects">Projects</a></li>
-          <li><a href="https://chasedumphord.com/#stack">Stack</a></li>
-          <li><a href="https://chasedumphord.com/#contact">Contact</a></li>
-          <li><a href="https://chasedumphord.com/assets/images/ChaseD_Resume.pdf" target="_blank" rel="noopener noreferrer">Resume</a></li>
-        </ul>
-      </nav>
-    </div>
-  </header>
-
-  <main id="top">
-
-    <!-- ═══════════════════════════════ NOC HERO ═══════════════════════════════ -->
-    <div class="noc-page-hero">
-      <div class="container">
-        <p class="eyebrow">
-          <span class="eyebrow-dot"></span>
-          Ced's NOC • Live Infrastructure Dashboard • Auto-refresh: 30s
-        </p>
-
-        <h1 class="noc-page-title">
-          Live Systems <span>Dashboard</span>
-        </h1>
-
-        <p class="noc-page-lead">
-          Real-time visibility into Ced's HomeLab infrastructure — Proxmox, K3s,
-          TrueNAS, APRS RF edge systems, and self-hosted services.
-          Not simulated. Not a demo. Running hardware.
-        </p>
-
-        <ul class="noc-page-meta">
-          <li>📍 Oxford, MS</li>
-          <li><a href="https://chasedumphord.com">← Portfolio</a></li>
-          <li><a href="https://github.com/ced4568" target="_blank" rel="noopener noreferrer">github/ced4568</a></li>
-        </ul>
-      </div>
-    </div>
-
-    <!-- ═══════════════════════════════ NOC DASHBOARD ═══════════════════════════════ -->
-    <div class="noc-full">
-      <div class="container">
-
-        <!-- Status command bar -->
-        <div class="noc-command-bar">
-          <span class="status-dot" id="noc-dot"></span>
-          <span id="noc-status-text">Connecting to NOC feed...</span>
-          <span class="noc-refresh-badge" id="noc-refresh-badge"></span>
-        </div>
-
-        <p class="noc-proof">
-          Proxmox • K3s • TrueNAS • VLAN Segmentation • APRS RF Edge Systems
-        </p>
-
-        <!-- Uptime summary pills (populated by JS) -->
-        <div class="uptime-bar" id="uptime-bar"></div>
-
-        <!-- Metrics -->
-        <div class="noc-metrics-grid">
-          <div class="noc-metric">
-            <h3 id="metric-nodes">--</h3>
-            <p>Infrastructure Nodes</p>
-          </div>
-          <div class="noc-metric">
-            <h3 id="metric-services">--</h3>
-            <p>Services Online</p>
-          </div>
-          <div class="noc-metric">
-            <h3 id="metric-vlans">--</h3>
-            <p>Network Segments</p>
-          </div>
-          <div class="noc-metric">
-            <h3 id="metric-edge">--</h3>
-            <p>Edge Systems</p>
-          </div>
-        </div>
-
-        <!-- Alert panel -->
-        <div class="noc-alert-panel">
-          <div class="noc-alert-header">
-            <h3>🚨 Alert Panel</h3>
-            <span>Top 3 Priority Systems</span>
-          </div>
-          <div id="noc-alert-list" class="noc-alert-list">
-            <p class="noc-loading">Awaiting data feed...</p>
-          </div>
-        </div>
-
-        <!-- Layer filter tabs -->
-        <div class="layer-tabs" id="layer-tabs">
-          <button class="layer-tab active" data-layer="all">All Systems</button>
-        </div>
-
-        <!-- System cards grid -->
-        <div id="noc-system-grid" class="noc-system-grid"></div>
-
-        <!-- Fallback -->
-        <div id="noc-fallback" class="noc-fallback" style="display:none;">
-          <p class="noc-fallback-msg">
-            📡 NOC feed unavailable from this context — systems run locally.<br/>
-            Data updates when the local pipeline pushes a fresh noc-status.json.
-          </p>
-        </div>
-
-        <!-- Stack info bar -->
-        <div class="noc-stack-bar">
-          <span><strong>Stack:</strong> Python health checks → JSON → JS dashboard</span>
-          <span><strong>Next:</strong> Grafana + Prometheus integration</span>
-          <span><strong>Source:</strong>
-            <a href="https://github.com/ced4568/ceds-homelab" target="_blank" rel="noopener noreferrer">
-              github/ceds-homelab
-            </a>
-          </span>
-        </div>
-
-        <!-- NOC Roadmap -->
-        <div class="noc-roadmap">
-          <p class="section-label">// noc roadmap</p>
-          <h2 class="section-h2" style="font-family:var(--font-display);font-size:1.6rem;margin:0 0 1.25rem;">Build Stages</h2>
-
-          <div class="noc-grid">
-            <div class="noc-card">
-              <div class="noc-card-badge done">✅ Live</div>
-              <h3>Portfolio NOC</h3>
-              <p>
-                JSON-driven dashboard showing real inventory, online/offline checks,
-                service labels, latency, and last-check timestamps.
-              </p>
-            </div>
-            <div class="noc-card">
-              <div class="noc-card-badge next">⚙️ Next</div>
-              <h3>Automated Data Updates</h3>
-              <p>
-                Scheduled scripts auto-refresh system status and push dashboard-ready
-                JSON on a cron interval — no manual updates.
-              </p>
-            </div>
-            <div class="noc-card">
-              <div class="noc-card-badge future">📈 Future</div>
-              <h3>Grafana + Prometheus</h3>
-              <p>
-                Full observability stack for Proxmox, TrueNAS, K3s, Raspberry Pi,
-                Uptime Kuma, and APRS edge systems with real-time metrics.
-              </p>
-            </div>
-          </div>
-        </div>
-
-      </div>
-    </div>
-
-  </main>
-
-  <!-- ═══════════════════════════════ FOOTER ═══════════════════════════════ -->
-  <footer class="site-footer">
-    <div class="container footer-content">
-      <p>© <span data-year></span> Chase Dumphord — <span class="footer-mono">noc.chasedumphord.com</span></p>
-      <a href="#top" class="back-to-top">↑ back to top</a>
-    </div>
-  </footer>
-
-  <!-- Shared script from main portfolio -->
-  <script src="https://chasedumphord.com/script.js"></script>
-
-  <!-- NOC page extras — layer filter tabs + uptime pills -->
-  <script>
-    // ── Layer filter tabs ──────────────────────────────────────────
-    // Populated after NOC data loads. Filters the system grid by layer.
-    let allSystems = [];
-
-    const originalLoad = window.loadNocStatus;
-
-    document.addEventListener("DOMContentLoaded", () => {
-      // Hook into data after the shared script loads it
-      const observer = new MutationObserver(() => {
-        const cards = document.querySelectorAll(".noc-system-card");
-        if (cards.length > 0) {
-          buildLayerTabs();
-          buildUptimePills();
-          observer.disconnect();
-        }
-      });
-
-      const grid = document.getElementById("noc-system-grid");
-      if (grid) observer.observe(grid, { childList: true });
-    });
-
-    function buildLayerTabs() {
-      const cards = document.querySelectorAll(".noc-system-card");
-      const layers = new Set(["all"]);
-
-      cards.forEach(card => {
-        const layerEl = card.querySelector(".noc-system-top span:last-child");
-        if (layerEl) layers.add(layerEl.textContent.trim());
-      });
-
-      const tabContainer = document.getElementById("layer-tabs");
-      tabContainer.innerHTML = "";
-
-      layers.forEach(layer => {
-        const btn = document.createElement("button");
-        btn.className = "layer-tab" + (layer === "all" ? " active" : "");
-        btn.dataset.layer = layer;
-        btn.textContent = layer === "all" ? "All Systems" : layer;
-        btn.addEventListener("click", () => filterByLayer(layer, btn));
-        tabContainer.appendChild(btn);
-      });
-    }
-
-    function filterByLayer(layer, activeBtn) {
-      document.querySelectorAll(".layer-tab").forEach(t => t.classList.remove("active"));
-      activeBtn.classList.add("active");
-
-      document.querySelectorAll(".noc-system-card").forEach(card => {
-        if (layer === "all") {
-          card.style.display = "";
-          return;
-        }
-        const layerEl = card.querySelector(".noc-system-top span:last-child");
-        card.style.display =
-          layerEl && layerEl.textContent.trim() === layer ? "" : "none";
-      });
-    }
-
-    function buildUptimePills() {
-      const bar = document.getElementById("uptime-bar");
-      if (!bar) return;
-
-      const cards = document.querySelectorAll(".noc-system-card");
-      let online = 0, warning = 0, offline = 0;
-
-      cards.forEach(card => {
-        const dot = card.querySelector(".mini-status");
-        if (!dot) return;
-        if (dot.classList.contains("online"))       online++;
-        else if (dot.classList.contains("warning")) warning++;
-        else if (dot.classList.contains("offline")) offline++;
-      });
-
-      bar.innerHTML = `
-        <span class="uptime-pill online">● ${online} Online</span>
-        ${warning > 0 ? `<span class="uptime-pill warning">● ${warning} Degraded</span>` : ""}
-        ${offline > 0 ? `<span class="uptime-pill offline">● ${offline} Offline</span>` : ""}
-        <span class="uptime-pill">${online + warning + offline} Total Systems</span>
-      `;
-    }
-  </script>
-
-</body>
-</html>
+<h1>Hi, I'm Chase! <br/>
+Digital Systems | Infrastructure | RF Edge Systems
+</h1>
+
+<h3>
+I build real-world systems that combine data, automation, and infrastructure. 
+From monitoring platforms and dashboards to full infrastructure environments, everything I create is designed to solve practical problems and scale.
+</h3>
+
+<img align="right" alt="Coding Gorilla" width="400px" style="padding-right:10px;" src="https://gifdb.com/images/thumbnail/monkey-laptop-coding-miys12p5izw3s11s.gif" />
+
+<ul>
+ <li>🚀 Currently building system monitoring platforms & dashboards</li>
+ <li>🖥️ Running a full homelab (Proxmox HA Cluster, Kubernetes, Docker)</li> 
+ <li>⚙️ Focused on infrastructure, automation, and observability</li>
+ <li>🧠 Ask me about K3s clusters, system monitoring, or homelab design</li>
+ <li>📫 Reach me: Chasedumphord@gmail.com</li>
+</ul>
+
+---
+
+# 🧠 Ced's NOC System
+
+👉 **Portfolio Site:** https://chasedumphord.com  
+👉 **Live NOC Dashboard:** https://noc.chasedumphord.com  
+
+This repository represents a **live Network Operations Center (NOC) system**, not just a static portfolio.
+
+It showcases:
+
+* 📊 **Ced's NOC Dashboard** (real system monitoring)
+* 🧠 **HomeLab Infrastructure** (HA virtualization, VLANs, services)
+* ☸️ **K3s Cluster** (distributed compute)
+* 📡 **APRS iGate (RF Edge System)**
+
+---
+
+# 📊 Ced's NOC Dashboard
+
+A central visibility layer for all systems.
+
+This dashboard includes real Grafana, Prometheus, and Blackbox Exporter monitoring for live HomeLab services.
+
+---
+
+## 🔍 What it shows:
+
+* Infrastructure health
+* Service availability
+* Network segmentation
+* RF edge system status
+
+---
+
+## 🧠 Why it matters:
+
+This demonstrates:
+
+* System monitoring mindset
+* Operational visibility
+* Real-world infrastructure awareness
+* Ability to translate data into actionable insights
+
+---
+
+## 🖼️ Live Dashboard Preview
+
+### 📊 Metrics Overview
+
+![NOC Metrics](./screenshots/noc-metrics.png)
+
+### 🖥️ Systems Overview
+
+![NOC Systems](./screenshots/noc-systems.png)
+
+---
+
+## 🔴 Live System Status
+
+![Ced's NOC](https://img.shields.io/endpoint?url=https://ced4568.github.io/ced-portfolio/data/noc-badge.json&style=for-the-badge)
+
+![Edge](https://img.shields.io/badge/Edge-RF%20Active-orange?style=for-the-badge)
+![Portfolio](https://img.shields.io/badge/Portfolio-Live-blue?style=for-the-badge)
+
+---
+
+# 🧠 Featured System — Ced's NOC (Network Operations Center)
+
+A real-time monitoring and observability platform built on top of my homelab infrastructure.
+
+---
+
+## 🔍 What it demonstrates:
+
+* Live system monitoring (services, nodes, edge systems)
+* Infrastructure visibility across VLANs and clusters
+* Service health tracking (latency, uptime, status)
+* Real data ingestion (NOT simulated)
+* Dashboard design for operational awareness
+
+---
+
+## ⚙️ Monitoring Stack:
+
+* Grafana (Visualization)
+* Prometheus (Metrics collection)
+* Blackbox Exporter (Service uptime & latency checks)
+* Uptime Kuma (External monitoring layer)
+
+👉 This is the **core system** that ties everything together.
+
+---
+
+# ⚡ NOC Automation Pipeline
+
+The NOC dashboard is powered by a fully automated data pipeline running on real homelab infrastructure.
+
+## How It Works
+
+```
+Biggie (Proxmox node — 10.10.30.192)
+  cron: */5 * * * *
+    → noc_update.py
+      → ICMP ping 28 systems
+      → record latency + online/offline status
+      → write data/noc-status.json
+      → git commit + push to ced-portfolio
+        → GitHub Pages deploys (~30s)
+          → noc.chasedumphord.com
+            → script.js fetches every 30s
+              → live dashboard updates
+```
+
+## Pipeline Details
+
+* **Script:** `~/scripts/noc_update.py` on Biggie
+* **Schedule:** Cron — every 5 minutes
+* **Log:** `/var/log/noc_update.log`
+* **Auth:** GitHub Personal Access Token
+* **Language:** Python 3
+* **Output:** Structured JSON → `data/noc-status.json`
+
+---
+
+# 🖥️ Systems Monitored (28 Total)
+
+## Proxmox Cluster — 6 Nodes
+
+| Node | IP |
+|------|----|
+| BigWorld | 10.10.30.250 |
+| Biggie | 10.10.30.192 |
+| Snoop | 10.10.30.153 |
+| TooShort | 10.10.30.120 |
+| Tupac | 10.10.30.74 |
+| DrDre | 10.10.30.227 |
+
+## K3s Cluster — 12 Nodes
+
+| Role | Node | IP |
+|------|------|----|
+| Control Plane | django-1 | 10.10.30.72 |
+| Control Plane | django-2 | 10.10.30.245 |
+| Control Plane | django-3 | 10.10.30.128 |
+| Ingress Worker | node-1 | 10.10.30.219 |
+| Ingress Worker | node-2 | 10.10.30.134 |
+| Ingress Worker | node-3 | 10.10.30.222 |
+| Data Worker | node-4 | 10.10.30.126 |
+| Data Worker | node-5 | 10.10.30.239 |
+| Data Worker | node-6 | 10.10.30.208 |
+| Monitoring Worker | node-7 | 10.10.30.198 |
+| Monitoring Worker | node-8 | 10.10.30.216 |
+| Monitoring Worker | node-9 | 10.10.30.29 |
+
+## Services, Monitoring & Edge — 10 Systems
+
+| System | IP | Layer | Role |
+|--------|----|-------|------|
+| TrueNAS | 10.10.30.143 | Infrastructure | Network Attached Storage |
+| Nginx Proxy Manager | 10.10.30.210 | Networking | Reverse Proxy |
+| Prometheus | 10.10.30.140 | Monitoring | Metrics Scraping (Active) |
+| Grafana | 10.10.30.68 | Monitoring | Metrics Dashboard |
+| Uptime Kuma | 10.10.30.14 | Monitoring | Service Monitor |
+| Dashy | 10.10.30.61 | Services | HomeLab Dashboard |
+| Home Assistant | 10.10.30.104 | Services | Home Automation |
+| PrimeStation | 10.10.30.233 | Services | Media Server |
+| APRS iGate Home | 10.10.30.129 | Edge | RF to APRS-IS Gateway |
+| APRS iGate Mobile | 10.10.30.35 | Edge | RF Mobile Node |
+
+---
+
+# 🧱 Foundation — Ced's Home Lab (Infrastructure + Monitoring)
+
+Real-world environment used to simulate production systems and host services.
+
+This is the backbone of Ced's NOC — where all systems, services, and monitoring originate.
+
+---
+
+## ⚙️ Core Infrastructure
+
+* **Proxmox HA Cluster (High Availability Virtualization)**
+* K3s Kubernetes cluster (Raspberry Pi - 12 nodes)
+* TrueNAS storage system
+* Docker / containerized workloads
+
+---
+
+## 🌐 Networking Layer
+
+* VLAN segmentation  
+  - Main Network  
+  - IoT Network  
+  - HomeLab Network (10.10.30.0/24)  
+  - Guest Network  
+
+* Nginx Proxy Manager (external access layer)
+* Cloudflare Tunnels (secure remote access)
+
+---
+
+## 📊 Monitoring Stack (LIVE)
+
+* Grafana (Dashboards)
+* Prometheus (Metrics)
+* Blackbox Exporter (Service Monitoring)
+* Uptime Kuma (External Monitoring)
+
+👉 The NOC dashboard is built directly on top of this environment.
+
+---
+
+# 📡 Edge System — APRS iGate (RF → Internet Gateway)
+
+A real-world RF system that feeds live data into infrastructure.
+
+---
+
+## ⚙️ System Components
+
+* Raspberry Pi + Direwolf APRS TNC
+* Audio chain tuning (critical for decode accuracy)
+* APRS-IS integration
+* Real beacon ingestion from handheld radios
+
+🔗 **Project:**
+https://github.com/ced4568/ceds-aprs-igate
+
+---
+
+## 🔥 Key Insight
+
+This system bridges:
+
+```text
+RF radio signals → Raspberry Pi / Direwolf → APRS-IS → Digital Infrastructure
+```
+
+---
+
+## 🎯 Key Tuning Insight
+
+* Target audio level: **~50–60**
+* Too high → clipping / decode failure
+* Too low → missed packets
+
+This was tuned using:
+
+* Direwolf audio level output
+* Real beacon testing from handheld radios
+
+---
+
+# 🧠 Featured Systems
+
+<ul>
+ <li>
+  <b>📊 Ced's NOC Dashboard</b><br/>
+  Enterprise-style monitoring platform providing real-time visibility into infrastructure, services, and edge systems.<br/>
+  <b>Highlights:</b> Prometheus metrics, Blackbox monitoring, service health tracking, Grafana dashboards.<br/>
+ </li>
+
+ <br/>
+
+ <li>
+  <b>🧱 Ced's Home Lab</b><br/>
+  Full infrastructure environment simulating production systems using virtualization and Kubernetes.<br/>
+  <b>Highlights:</b> Proxmox HA cluster, 12-node K3s cluster, VLAN segmentation, reverse proxy, monitoring stack.<br/>
+ </li>
+
+ <br/>
+
+ <li>
+  <b>📡 APRS iGate (RF Edge System)</b><br/>
+  RF-to-internet gateway ingesting real-world radio data into digital systems.<br/>
+  <b>Highlights:</b> Audio tuning, Direwolf APRS TNC, APRS-IS integration, live beacon ingestion.<br/>
+ </li>
+</ul>
+
+---
+
+# 🧰 Tech Stack
+
+## ⚡ Core Technologies
+
+<img align="left" alt="TypeScript" width="30px" style="padding-right:10px;" src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/typescript/typescript-plain.svg" />
+<img align="left" alt="Git" width="30px" style="padding-right:10px;" src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/git/git-original.svg" />
+<img align="left" alt="Linux" width="30px" style="padding-right:10px;" src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/linux/linux-original.svg" />
+<img align="left" alt="HTML" width="30px" style="padding-right:10px;" src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/html5/html5-plain.svg" />
+<img align="left" alt="JavaScript" width="30px" style="padding-right:10px;" src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/javascript/javascript-plain.svg" />
+<img align="left" alt="React" width="30px" style="padding-right:10px;" src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/react/react-original.svg" />
+<img align="left" alt="NodeJS" width="30px" style="padding-right:10px;" src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/nodejs/nodejs-original.svg" />
+<img align="left" alt="Python" width="30px" style="padding-right:10px;" src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/python/python-plain.svg" />
+<img align="left" alt="Docker" width="30px" style="padding-right:10px;" src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/docker/docker-original.svg" />
+<img align="left" alt="Kubernetes" width="30px" style="padding-right:10px;" src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/kubernetes/kubernetes-plain.svg" />
+<img align="left" alt="Grafana" width="30px" style="padding-right:10px;" src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/grafana/grafana-original.svg" />
+<img align="left" alt="Prometheus" width="30px" style="padding-right:10px;" src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/prometheus/prometheus-original.svg" />
+<img align="left" alt="Bash" width="30px" style="padding-right:10px;" src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/bash/bash-original.svg" />
+
+<br /><br />
+
+## 🖥️ Infrastructure & Systems
+
+* Proxmox HA Cluster (Virtualization)
+* K3s Kubernetes (Raspberry Pi Cluster)
+* Docker / Containerized Services
+* TrueNAS (Storage)
+
+## 📊 Monitoring & Observability
+
+* Grafana (Dashboards)
+* Prometheus (Metrics)
+* Blackbox Exporter (Service Monitoring)
+* Uptime Kuma (External Monitoring)
+
+## 🌐 Networking & Access
+
+* Nginx Proxy Manager (Reverse Proxy)
+* Cloudflare Tunnels (Secure External Access)
+* VLAN Segmentation (UniFi Network)
+
+## 📡 Edge & RF Systems
+
+* Direwolf (APRS TNC)
+* APRS-IS Integration
+* Raspberry Pi iGate Systems
+* Audio Signal Processing / Tuning
+
+## 💻 Development
+
+* Python (Automation / Data Collection)
+* JavaScript (Frontend Dashboard UI)
+* HTML / CSS (UI Design)
+* Bash (System Automation)
+* Git / GitHub (Version Control)
+
+# 📈 Roadmap
+
+* [x] Grafana + Prometheus deployed
+* [x] Real service monitoring (Blackbox)
+* [x] Live NOC dashboard (v1) — 28 systems monitored
+* [x] Automated Python pipeline — cron pushing data every 5 minutes
+* [ ] Response time dashboards
+* [ ] Alerting system (Prometheus alerts)
+* [ ] Full NOC dashboard layout (v2)
+* [ ] Mobile APRS iGate deployment
+
+# 👤 Connect With Me
+
+[LinkedIn](https://www.linkedin.com/in/toochase-dumphord/)
+
+[GitHub](https://github.com/ced4568)
+
+## ⚡ Final Note
+
+This is not a static portfolio — it is a live representation of real infrastructure, monitoring, and edge systems working together.
