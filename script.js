@@ -54,7 +54,9 @@ async function loadNocStatus() {
       dot.className = "status-dot live";
     }
     if (statusText) {
-      statusText.textContent = `${data.nocName} — ${data.status} — Last updated: ${data.lastUpdated}`;
+      const d = new Date(data.lastUpdated);
+      const formatted = d.toLocaleString('en-US', { month: 'long', day: 'numeric', year: 'numeric', hour: 'numeric', minute: '2-digit', hour12: true });
+      statusText.textContent = `${data.nocName} — ${data.status} — Last updated: ${formatted}`;
     }
     if (badge) {
       badge.textContent = `Auto-refresh: 30s`;
