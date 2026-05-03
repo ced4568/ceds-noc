@@ -35,7 +35,12 @@ async function loadNocStatus() {
 
   try {
     // Cache-bust to always get fresh data
-    const res = await fetch(`https://chasedumphord.com/data/noc-status.json?t=${Date.now()}`);
+    // Use absolute URL when on NOC subdomain, relative when on main portfolio
+    const nocDataUrl = window.location.hostname === 'noc.chasedumphord.com'
+      ? `https://chasedumphord.com/data/noc-status.json?t=${Date.now()}`
+      : `data/noc-status.json?t=${Date.now()}`;
+
+    const res = await fetch(nocDataUrl);
 
     if (!res.ok) throw new Error(`HTTP ${res.status}`);
 
@@ -229,6 +234,8 @@ async function loadGithubRepos() {
     }
   }
 }
+// Build the alert panel from system data
+function renderAlerts(systems, alertList) {
   const scored = systems
     .map((sys) => {
       const sev    = (sys.severity || "").toLowerCase();
