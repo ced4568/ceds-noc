@@ -177,9 +177,27 @@
       color: var(--accent-2);
     }
 
+    .noc-stack-bar a {
+      color: var(--accent-2);
+      text-decoration: none;
+    }
+
+    .noc-stack-bar a:hover {
+      text-decoration: underline;
+    }
+
+    /* Grafana CTA button row */
+    .noc-cta-row {
+      display: flex;
+      gap: 0.75rem;
+      flex-wrap: wrap;
+      margin-bottom: 1.25rem;
+    }
+
     @media (max-width: 620px) {
       .layer-tabs { gap: 0.4rem; }
       .layer-tab  { font-size: 0.7rem; padding: 0.3rem 0.65rem; }
+      .noc-cta-row { flex-direction: column; }
     }
   </style>
 </head>
@@ -223,6 +241,20 @@
           TrueNAS, APRS RF edge systems, and self-hosted services.
           Not simulated. Not a demo. Running hardware.
         </p>
+
+        <!-- Grafana CTA buttons -->
+        <div class="noc-cta-row">
+          <a href="https://grafana.cedshomelab.com/dashboard/snapshot/PmEdg0ALfAVsmKN1Qgv7K11XP8h52ne5"
+             target="_blank" rel="noopener noreferrer"
+             class="btn btn-primary">
+            📊 View Live Grafana Dashboard →
+          </a>
+          <a href="https://github.com/ced4568/ceds-observability-stack"
+             target="_blank" rel="noopener noreferrer"
+             class="btn btn-secondary">
+            View Observability Stack
+          </a>
+        </div>
 
         <ul class="noc-page-meta">
           <li>📍 Oxford, MS</li>
@@ -300,7 +332,10 @@
         <!-- Stack info bar -->
         <div class="noc-stack-bar">
           <span><strong>Stack:</strong> Python health checks → JSON → JS dashboard</span>
-          <span><strong>Next:</strong> Grafana + Prometheus integration</span>
+          <span><strong>Live:</strong> Grafana + Prometheus —
+            <a href="https://grafana.cedshomelab.com/dashboard/snapshot/PmEdg0ALfAVsmKN1Qgv7K11XP8h52ne5"
+               target="_blank" rel="noopener noreferrer">View Dashboard →</a>
+          </span>
           <span><strong>Source:</strong>
             <a href="https://github.com/ced4568/ceds-homelab" target="_blank" rel="noopener noreferrer">
               github/ceds-homelab
@@ -331,11 +366,12 @@
               </p>
             </div>
             <div class="noc-card">
-              <div class="noc-card-badge next">⚙️ Next</div>
+              <div class="noc-card-badge done">✅ Live</div>
               <h3>Grafana + Prometheus</h3>
               <p>
                 Full observability stack for Proxmox, TrueNAS, K3s, Raspberry Pi,
                 Uptime Kuma, and APRS edge systems with real-time metrics ingestion.
+                Public dashboard available.
               </p>
             </div>
           </div>
@@ -359,14 +395,11 @@
 
   <!-- NOC page extras — layer filter tabs + uptime pills -->
   <script>
-    // ── Layer filter tabs ──────────────────────────────────────────
-    // Populated after NOC data loads. Filters the system grid by layer.
     let allSystems = [];
 
     const originalLoad = window.loadNocStatus;
 
     document.addEventListener("DOMContentLoaded", () => {
-      // Hook into data after the shared script loads it
       const observer = new MutationObserver(() => {
         const cards = document.querySelectorAll(".noc-system-card");
         if (cards.length > 0) {
