@@ -11,7 +11,9 @@
 
 ## What This Is
 
-This is the public-facing front door to Ced's HomeLab infrastructure. While the backend observability stack ([ceds-observability-stack](https://github.com/ced4568/ceds-observability-stack)) handles metrics collection and Grafana dashboards, this repo is the custom status page that makes that data publicly accessible — no login required.
+This is the public-facing front door to Ced's HomeLab infrastructure. This is the frontend layer of Ced's observability platform — a custom-built status page that makes live infrastructure data publicly 
+accessible without requiring login. The backend engine ([ceds-observability-stack](https://github.com/ced4568/ceds-observability-stack)) handles metrics collection via Prometheus and Grafana. This repo is 
+what the public sees — real-time service status, latency, and health across every layer of the homelab. no login required.
 
 It's not a template or a third-party uptime service. It's a purpose-built frontend that pulls live status data and presents it as a professional NOC dashboard. Every card on the page represents a real, running service with real latency and uptime data.
 
